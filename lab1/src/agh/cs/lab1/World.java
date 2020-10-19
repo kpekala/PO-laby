@@ -6,10 +6,10 @@ import static java.lang.System.out;
 public class World {
 
     public static void main(String[] args) {
-        out.println("Start systemu");
+        out.println("Start");
         Direction[] directions = getDirections(args);
         run(directions);
-        out.println("Koniec działania systemu");
+        out.println("Stop");
     }
 
     static void run(Direction[] tab){
