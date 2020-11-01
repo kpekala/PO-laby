@@ -9,7 +9,7 @@ public class IntegrationTest {
         MoveDirection[] moveDirections = OptionsParser.parse(arr);
         MoveDirection[] moves = {MoveDirection.BACKWARD,MoveDirection.BACKWARD, MoveDirection.FORWARD, MoveDirection.FORWARD,
         MoveDirection.RIGHT, MoveDirection.RIGHT, MoveDirection.LEFT, MoveDirection.LEFT};
-        Assert.assertArrayEquals(moveDirections,moves);
+        Assert.assertArrayEquals(moves, moveDirections);
 
         Animal animal = new Animal();
         Vector2d lastPosition = animal.getPosition();
@@ -17,5 +17,15 @@ public class IntegrationTest {
         for(MoveDirection move: moves){
             animal.move(move);
         }
+        // Czy wykonuje poprawne ruchy i posiada poprawny kierunek
+        Assert.assertEquals(new Vector2d(2,2), animal.getPosition());
+        Assert.assertEquals(MapDirection.NORTH, animal.getMapDirection());
+
+        // Czy nie wychodzi za plansze
+        MoveDirection[] moves2 = {MoveDirection.BACKWARD,MoveDirection.BACKWARD, MoveDirection.BACKWARD, MoveDirection.BACKWARD, MoveDirection.BACKWARD};
+        for(MoveDirection move: moves2) {
+            animal.move(move);
+        }
+        Assert.assertEquals(new Vector2d(2,0),animal.getPosition());
     }
 }

@@ -17,7 +17,11 @@ public class Animal {
             case LEFT -> this.mapDirection = this.mapDirection.previous();
             default -> {
                 Vector2d moveVector = this.mapDirection.toUnitVector();
-                Vector2d newPosition = this.position.add(moveVector);
+                Vector2d newPosition;
+                if(direction == MoveDirection.FORWARD)
+                    newPosition = this.position.add(moveVector);
+                else
+                    newPosition = this.position.subtract(moveVector);
                 if(newPosition.follows(new Vector2d(0,0)) && newPosition.precedes(new Vector2d(4,4))){
                     this.position = newPosition;
                 }
