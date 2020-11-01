@@ -12,8 +12,6 @@ public class IntegrationTest {
         Assert.assertArrayEquals(moves, moveDirections);
 
         Animal animal = new Animal();
-        Vector2d lastPosition = animal.getPosition();
-        MapDirection lastOrientation = animal.getMapDirection();
         for(MoveDirection move: moves){
             animal.move(move);
         }
