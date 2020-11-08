@@ -37,17 +37,6 @@ public class RectangularMap implements IWorldMap {
     }
 
     @Override
-    public void run(MoveDirection[] directions) {
-        if(this.animals.isEmpty())
-            return;
-        int i = 0;
-        for(MoveDirection direction: directions){
-            this.animals.get(i).move(direction);
-            i = (i + 1) % this.animals.size();
-        }
-    }
-
-    @Override
     public boolean isOccupied(Vector2d position) {
         return objectAt(position) != null;
     }
@@ -63,5 +52,9 @@ public class RectangularMap implements IWorldMap {
     @Override
     public String toString(){
         return visualizer.draw(this.lowerLeft, this.upperRight);
+    }
+
+    public ArrayList<Animal> getAnimals(){
+        return this.animals;
     }
 }
