@@ -1,16 +1,16 @@
 package agh.cs.lab5.prev;
 
 
+import agh.cs.lab5.AbstractWorldMap;
 import agh.cs.lab5.prev.base.Animal;
 import agh.cs.lab5.prev.base.Vector2d;
 
 import java.util.ArrayList;
 
-public class RectangularMap implements IWorldMap {
+public class RectangularMap extends AbstractWorldMap {
 
     private int width, height;
     private MapVisualizer visualizer = new MapVisualizer(this);
-    private Vector2d lowerLeft, upperRight;
 
     private ArrayList<Animal> animals = new ArrayList<Animal>();
 
@@ -24,16 +24,6 @@ public class RectangularMap implements IWorldMap {
     @Override
     public boolean canMoveTo(Vector2d position) {
         return !this.isOccupied(position) && position.follows(this.lowerLeft) && position.precedes(this.upperRight);
-    }
-
-    @Override
-    public boolean place(Animal animal) {
-        Vector2d animalPosition = animal.getPosition();
-        if(canMoveTo(animalPosition)){
-            animals.add(animal);
-            return true;
-        }
-        return false;
     }
 
     @Override
@@ -52,6 +42,22 @@ public class RectangularMap implements IWorldMap {
     @Override
     public String toString(){
         return visualizer.draw(this.lowerLeft, this.upperRight);
+    }
+
+    @Override
+    protected Vector2d getLowerOccupied() {
+        Vector2d lower = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        for(Animal animal : this.animals)
+            lower = animal.getPosition().lowerLeft(lower);
+        return lower;
+    }
+
+    @Override
+    protected Vector2d getUpperOccupied() {
+        Vector2d upper = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
+        for(Animal animal : this.animals)
+            upper = animal.getPosition().upperRight(upper);
+        return upper;
     }
 
     public ArrayList<Animal> getAnimals(){

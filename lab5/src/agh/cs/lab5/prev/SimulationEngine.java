@@ -33,4 +33,8 @@ public class SimulationEngine implements IEngine {
             i = (i + 1) % this.animals.size();
         }
     }
+
+    public ArrayList<Animal> getAnimals() {
+        return animals;
+    }
 }

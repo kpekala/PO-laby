@@ -3,6 +3,8 @@ package agh.cs.lab5.prev.base;
 
 import agh.cs.lab5.prev.IWorldMap;
 
+import java.util.Objects;
+
 public class Animal {
 
     private MapDirection mapDirection;
@@ -58,4 +60,18 @@ public class Animal {
         return mapDirection;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal animal = (Animal) o;
+        return mapDirection == animal.mapDirection &&
+                position.equals(animal.position) &&
+                map.equals(animal.map);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mapDirection, position, map);
+    }
 }
