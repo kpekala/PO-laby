@@ -8,7 +8,7 @@ import agh.cs.lab5.prev.base.Vector2d;
 import java.util.ArrayList;
 
 abstract public class AbstractWorldMap implements IWorldMap {
-    protected ArrayList<Animal> animals = new ArrayList<>();
+    protected ArrayList<IMapElement> elements = new ArrayList<>();
     private MapVisualizer visualizer = new MapVisualizer(this);
     protected Vector2d lowerLeft, upperRight;
 
@@ -19,8 +19,8 @@ abstract public class AbstractWorldMap implements IWorldMap {
     abstract public Object objectAt(Vector2d position);
 
     protected boolean isAnimalThere(Vector2d position){
-        for(Animal animal: this.animals)
-            if (animal.getPosition().equals(position))
+        for(IMapElement element: this.elements)
+            if (element instanceof Animal && element.getPosition().equals(position))
                 return true;
         return false;
     }
@@ -29,7 +29,7 @@ abstract public class AbstractWorldMap implements IWorldMap {
     public boolean place(Animal animal) {
         Vector2d animalPosition = animal.getPosition();
         if(canMoveTo(animalPosition)){
-            animals.add(animal);
+            elements.add(animal);
             return true;
         }
         return false;

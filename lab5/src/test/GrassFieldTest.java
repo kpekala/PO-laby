@@ -2,11 +2,9 @@ package test;
 
 import agh.cs.lab5.GrassField;
 import agh.cs.lab5.prev.IEngine;
-import agh.cs.lab5.prev.IWorldMap;
 import agh.cs.lab5.prev.SimulationEngine;
 import agh.cs.lab5.prev.base.Animal;
 import agh.cs.lab5.prev.base.MoveDirection;
-import agh.cs.lab5.prev.base.OptionsParser;
 import agh.cs.lab5.prev.base.Vector2d;
 import org.junit.Assert;
 import org.junit.Test;

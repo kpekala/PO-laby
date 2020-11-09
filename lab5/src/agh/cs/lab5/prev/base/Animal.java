@@ -1,11 +1,12 @@
 package agh.cs.lab5.prev.base;
 
 
+import agh.cs.lab5.IMapElement;
 import agh.cs.lab5.prev.IWorldMap;
 
 import java.util.Objects;
 
-public class Animal {
+public class Animal implements IMapElement {
 
     private MapDirection mapDirection;
     private Vector2d position;
@@ -52,6 +53,7 @@ public class Animal {
         return mapDirection.code();
     }
 
+    @Override
     public Vector2d getPosition() {
         return position;
     }
