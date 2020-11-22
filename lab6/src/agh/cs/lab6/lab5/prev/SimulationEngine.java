@@ -30,9 +30,7 @@ public class SimulationEngine implements IEngine {
         int i = 0;
         for(MoveDirection direction: this.moves){
             Animal animalToMove = this.animals.get(i);
-            Vector2d positionBefore = animalToMove.getPosition();
-            this.animals.get(i).move(direction);
-            //if(!animalToMove.getPosition().equals())
+            animalToMove.move(direction);
             i = (i + 1) % this.animals.size();
         }
     }

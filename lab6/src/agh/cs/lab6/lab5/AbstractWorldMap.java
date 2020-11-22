@@ -9,8 +9,8 @@ import agh.cs.lab6.lab5.prev.base.Vector2d;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-abstract public class AbstractWorldMap implements IWorldMap {
-    protected LinkedHashMap<Vector2d,IMapElement> elements = new LinkedHashMap();
+abstract public class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
+    protected LinkedHashMap<Vector2d,Animal> animals = new LinkedHashMap();
     private MapVisualizer visualizer = new MapVisualizer(this);
     protected Vector2d lowerLeft, upperRight;
 
@@ -21,16 +21,19 @@ abstract public class AbstractWorldMap implements IWorldMap {
     abstract public Object objectAt(Vector2d position);
 
     protected boolean isAnimalThere(Vector2d position){
-        IMapElement element = elements.get(position);
-        return element instanceof Animal && element.getPosition().equals(position);
+        Animal element = animals.get(position);
+        return element != null && element.getPosition().equals(position);
     }
 
     @Override
     public void place(Animal animal) {
         Vector2d animalPosition = animal.getPosition();
-        if(canMoveTo(animalPosition))
-            elements.put(animalPosition,animal);
-        throw new IllegalArgumentException("Animal can not be placed on an occupied place. Position: " + animalPosition);
+        if(canMoveTo(animalPosition)){
+            animals.put(animalPosition,animal);
+            animal.addObserver(this);
+        }
+        else
+            throw new IllegalArgumentException("Animal can not be placed on an occupied place. Position: " + animalPosition);
     }
 
 
@@ -49,7 +52,14 @@ abstract public class AbstractWorldMap implements IWorldMap {
     protected abstract Vector2d getUpperOccupied();
 
     @Override
-    public LinkedHashMap<Vector2d, IMapElement> getElements(){
-        return this.elements;
+    public LinkedHashMap<Vector2d, Animal> getAnimals(){
+        return this.animals;
+    }
+
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        Animal animal = animals.get(oldPosition);
+        animals.remove(oldPosition);
+        animals.put(newPosition, animal);
     }
 }

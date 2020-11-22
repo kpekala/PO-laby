@@ -2,8 +2,10 @@ package agh.cs.lab6.lab5.prev.base;
 
 
 import agh.cs.lab6.lab5.IMapElement;
+import agh.cs.lab6.lab5.IPositionChangeObserver;
 import agh.cs.lab6.lab5.prev.IWorldMap;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Animal implements IMapElement {
@@ -11,6 +13,7 @@ public class Animal implements IMapElement {
     private MapDirection mapDirection;
     private Vector2d position;
     private IWorldMap map;
+    private final ArrayList<IPositionChangeObserver> observers = new ArrayList<>();
 
     public Animal(){
         //Teraz niebezpiecznie jest go używać, co z obiektem map?
@@ -41,11 +44,22 @@ public class Animal implements IMapElement {
                 else
                     newPosition = this.position.subtract(moveVector);
                 if(map.canMoveTo(newPosition)){
+                    Vector2d oldPosition = this.position;
                     this.position = newPosition;
+                    positionChanged(oldPosition, newPosition);
                 }
             }
         }
 
+    }
+
+    private void  positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        for (IPositionChangeObserver observer: observers)
+            observer.positionChanged(oldPosition, newPosition);
+    }
+
+    public void addObserver(IPositionChangeObserver observer){
+        this.observers.add(observer);
     }
 
     @Override

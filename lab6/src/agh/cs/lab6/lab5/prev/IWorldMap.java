@@ -46,5 +46,5 @@ public interface IWorldMap {
      */
     Object objectAt(Vector2d position);
 
-    public LinkedHashMap<Vector2d, IMapElement> getElements();
+    public LinkedHashMap<Vector2d, Animal> getAnimals();
 }

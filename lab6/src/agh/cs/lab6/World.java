@@ -15,9 +15,10 @@ public class World {
             checkArguments(args);
             MoveDirection[] directions = OptionsParser.parse(args);
             IWorldMap map = new GrassField(10);
-            Vector2d[] positions = { new Vector2d(2,2), new Vector2d(2,2) };
+            Vector2d[] positions = { new Vector2d(2,3), new Vector2d(2,2) };
             IEngine engine = new SimulationEngine(directions, map, positions);
             engine.run();
+            System.out.println(map);
         }catch (IllegalArgumentException ex){
             System.out.println(ex.toString());
             System.exit(1);
