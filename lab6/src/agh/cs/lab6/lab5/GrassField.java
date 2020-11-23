@@ -1,5 +1,6 @@
 package agh.cs.lab6.lab5;
 
+import agh.cs.lab6.extended_to_lab7.MapBoundary;
 import agh.cs.lab6.lab5.prev.base.Animal;
 import agh.cs.lab6.lab5.prev.base.Vector2d;
 
@@ -10,9 +11,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class GrassField extends AbstractWorldMap {
-    //Canmove to bez sprawdzenia, occupied nie
-
-    protected LinkedHashMap<Vector2d,Grass> grasses = new LinkedHashMap();
+    private final LinkedHashMap<Vector2d,Grass> grasses = new LinkedHashMap();
 
     public GrassField(int numberOfGrassAreas){
         this.lowerLeft = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
@@ -29,7 +28,9 @@ public class GrassField extends AbstractWorldMap {
                         generator.nextInt((int)Math.sqrt(numberOfGrassAreas*10)),
                         generator.nextInt((int)Math.sqrt(numberOfGrassAreas*10)));
             }while (this.isOccupied(grassPosition));
-            this.grasses.put(grassPosition,new Grass(grassPosition));
+            Grass newGrass = new Grass(grassPosition);
+            this.grasses.put(grassPosition,newGrass);
+            mapBoundary.addElement(newGrass);
         }
     }
 

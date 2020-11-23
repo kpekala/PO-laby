@@ -1,6 +1,7 @@
 package agh.cs.lab6.lab5;
 
 
+import agh.cs.lab6.extended_to_lab7.MapBoundary;
 import agh.cs.lab6.lab5.prev.IWorldMap;
 import agh.cs.lab6.lab5.prev.MapVisualizer;
 import agh.cs.lab6.lab5.prev.base.Animal;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 abstract public class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
+    protected final MapBoundary mapBoundary = new MapBoundary();
     protected LinkedHashMap<Vector2d,Animal> animals = new LinkedHashMap();
     private MapVisualizer visualizer = new MapVisualizer(this);
     protected Vector2d lowerLeft, upperRight;
@@ -30,6 +32,7 @@ abstract public class AbstractWorldMap implements IWorldMap, IPositionChangeObse
         Vector2d animalPosition = animal.getPosition();
         if(canMoveTo(animalPosition)){
             animals.put(animalPosition,animal);
+            mapBoundary.addElement(animal);
             animal.addObserver(this);
         }
         else
