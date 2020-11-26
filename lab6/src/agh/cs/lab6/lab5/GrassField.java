@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class GrassField extends AbstractWorldMap {
-    private final LinkedHashMap<Vector2d,Grass> grasses = new LinkedHashMap();
+    private final LinkedHashMap<Vector2d,Grass> grasses = new LinkedHashMap<>();
 
     public GrassField(int numberOfGrassAreas){
         this.lowerLeft = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
@@ -50,22 +50,11 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     protected Vector2d getLowerOccupied(){
-        Vector2d lower = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-        for(IMapElement element : this.animals.values())
-            lower = element.getPosition().lowerLeft(lower);
-        for(IMapElement element : this.grasses.values())
-            lower = element.getPosition().lowerLeft(lower);
-        return lower;
-
+        return mapBoundary.getLowerBound();
     }
     @Override
     protected Vector2d getUpperOccupied(){
-        Vector2d upper = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        for(IMapElement element : this.animals.values())
-            upper = element.getPosition().upperRight(upper);
-        for(IMapElement element : this.grasses.values())
-            upper = element.getPosition().upperRight(upper);
-        return upper;
+        return mapBoundary.getUpperBound();
     }
 
     public List<Grass> getGrassAreas() {

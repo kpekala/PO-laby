@@ -17,7 +17,7 @@ public class MapBoundary implements IPositionChangeObserver {
 
     private final IWorldMap map;
 
-    MapBoundary(IWorldMap map){
+    public MapBoundary(IWorldMap map){
         this.map = map;
     }
 
@@ -31,7 +31,11 @@ public class MapBoundary implements IPositionChangeObserver {
         if(el ==null){
             el = (IMapElement) map.objectAt(newPosition);
         }
-        //if(sortedElementsByX.stream().sorted().)
+        sortedElementsByX.remove(el);
+        sortedElementsByY.remove(el);
+
+        sortedElementsByX.add(el);
+        sortedElementsByY.add(el);
     }
     Comparator<IMapElement> comparatorByX(){
         return (el1, el2) -> {
@@ -74,5 +78,16 @@ public class MapBoundary implements IPositionChangeObserver {
         else if (el1 instanceof Grass && el2 instanceof Animal)
             return -1;
         return 0;
+    }
+
+    public Vector2d getLowerBound(){
+        Vector2d lX = sortedElementsByX.first().getPosition();
+        Vector2d lY = sortedElementsByY.first().getPosition();
+        return lX.lowerLeft(lY);
+    }
+    public Vector2d getUpperBound(){
+        Vector2d uX = sortedElementsByX.last().getPosition();
+        Vector2d uY = sortedElementsByY.last().getPosition();
+        return uX.upperRight(uY);
     }
 }

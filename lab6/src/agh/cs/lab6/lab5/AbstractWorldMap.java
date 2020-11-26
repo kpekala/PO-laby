@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 abstract public class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
-    protected final MapBoundary mapBoundary = new MapBoundary();
-    protected LinkedHashMap<Vector2d,Animal> animals = new LinkedHashMap();
-    private MapVisualizer visualizer = new MapVisualizer(this);
+    protected final MapBoundary mapBoundary = new MapBoundary(this);
+    protected LinkedHashMap<Vector2d,Animal> animals = new LinkedHashMap<>();
+    private final MapVisualizer visualizer = new MapVisualizer(this);
     protected Vector2d lowerLeft, upperRight;
 
     @Override
