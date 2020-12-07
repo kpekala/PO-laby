@@ -1,4 +1,4 @@
-package sample;
+package main.java.ui.app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -6,7 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class App extends Application {
+
+    private final AppPresenter appPresenter = new AppPresenter();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -19,5 +21,9 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public AppPresenter getPresenter(){
+        return appPresenter;
     }
 }
