@@ -5,17 +5,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.java.ui.stage.SettingsStage;
 
 public class App extends Application {
 
     private final AppPresenter appPresenter = new AppPresenter();
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
+    public void start(Stage primaryStage){
+        SettingsStage settingsStage = new SettingsStage(300, 500, "Ustawienia", "/settings.fxml");
+        settingsStage.show();
     }
 
 

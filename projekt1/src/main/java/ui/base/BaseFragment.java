@@ -11,8 +11,7 @@ public abstract class BaseFragment extends Pane {
 
     public BaseFragment(App app){
         this.app = app;
-        this.appPresenter = appPresenter;
-        this.appPresenter = appPresenter;
+        this.appPresenter = this.app.getPresenter();
 
         initFragment();
         initViews();
