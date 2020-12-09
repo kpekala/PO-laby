@@ -1,11 +1,8 @@
-package main.java.ui.app;
+package ui.app;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.java.ui.stage.SettingsStage;
+import ui.settings.SettingsStage;
 
 public class App extends Application {
 

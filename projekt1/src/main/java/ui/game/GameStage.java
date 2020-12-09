@@ -1,10 +1,10 @@
-package main.java.ui.stage;
+package ui.game;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.java.ui.base.BaseStage;
+import ui.base.BaseStage;
 
 import java.io.IOException;
 

@@ -1,8 +1,8 @@
-package main.java.ui.base;
+package ui.base;
 
 import javafx.scene.layout.Pane;
-import main.java.ui.app.App;
-import main.java.ui.app.AppPresenter;
+import ui.app.App;
+import ui.app.AppPresenter;
 
 public abstract class BaseFragment extends Pane {
 

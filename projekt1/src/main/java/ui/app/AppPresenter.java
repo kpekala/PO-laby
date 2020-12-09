@@ -1,4 +1,4 @@
-package main.java.ui.app;
+package ui.app;
 
 public class AppPresenter {
 }
