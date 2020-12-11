@@ -4,6 +4,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import logic.GameConfig;
 import ui.game.GameStage;
 import ui.settings.SettingsStage;
 
@@ -15,9 +16,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage){
-        //SettingsStage settingsStage = new SettingsStage(this, 300, 500, "Ustawienia");
-        GameStage gameStage = new GameStage(this, 900, 600, "Symulacja");
-        gameStage.show();
+        settingsStage = new SettingsStage(this, 300, 500, "Ustawienia", "/settings.fxml");
+        gameStage = new GameStage(this, 1200, 800, "Symulacja");
+        settingsStage.show();
     }
 
     public static void main(String[] args) {
@@ -26,5 +27,10 @@ public class App extends Application {
 
     public AppPresenter getPresenter(){
         return appPresenter;
+    }
+
+    public void onStartGame(GameConfig gameConfig){
+        settingsStage.hide();
+        gameStage.show();
     }
 }

@@ -9,8 +9,9 @@ import utils.Colors;
 public class MenuFragment extends BaseFragment {
 
 
-    public MenuFragment(BaseStage baseStage) {
-        super(baseStage,new Vector2d(0, 400), new Vector2d(baseStage.getStageWidth(), baseStage.getStageHeight() - 400));
+    public MenuFragment(BaseStage stage) {
+        super(stage,new Vector2d(0, (int) (stage.getStageHeight() * 0.8)),
+                new Vector2d((int) (stage.getStageWidth() * 0.7), (int) (stage.getStageHeight() * 0.2)));
     }
 
     @Override
@@ -20,6 +21,6 @@ public class MenuFragment extends BaseFragment {
 
     @Override
     public void initFragment() {
-        setStyle("-fx-background-color: " + Colors.getGrey(0.7));
+        setStyle("-fx-background-color: " + Colors.getGrey(0.9));
     }
 }

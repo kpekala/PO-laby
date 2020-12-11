@@ -8,18 +8,15 @@ import ui.app.App;
 
 import java.io.IOException;
 
-public class BaseStage extends Stage {
+public abstract class BaseStage extends Stage {
 
-    private final App app;
-    private int width;
-    private int height;
+    protected App app;
+    protected int width;
+    protected int height;
 
 
     public BaseStage(App app, int width, int height, String title, String pathToResource){
         super();
-        this.app = app;
-        this.width = width;
-        this.height = height;
         try{
             Parent root = FXMLLoader.load(getClass().getResource(pathToResource));
             setTitle(title);
@@ -28,11 +25,18 @@ public class BaseStage extends Stage {
             System.out.println("auć");
             exception.printStackTrace();
         }
+        setUpStage(app, width, height);
     }
     public BaseStage(App app, int width, int height){
+        setUpStage(app, width, height);
+    }
+
+    private void setUpStage(App app, int width, int height){
         this.app = app;
         this.width = width;
         this.height = height;
+        setResizable(false);
+        initListeners();
     }
 
     public App getApp(){
@@ -46,4 +50,6 @@ public class BaseStage extends Stage {
     public int getStageHeight() {
         return height;
     }
+
+    public abstract void initListeners();
 }

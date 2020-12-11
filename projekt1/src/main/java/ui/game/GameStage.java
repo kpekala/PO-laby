@@ -8,8 +8,6 @@ import ui.fragment.GameFragment;
 import ui.fragment.MenuFragment;
 import ui.fragment.StatisticsFragment;
 
-import java.io.IOException;
-
 public class GameStage extends BaseStage {
 
     private final GameFragment gameFragment;
@@ -35,5 +33,10 @@ public class GameStage extends BaseStage {
 
         Scene scene = new Scene(root, width, height);
         setScene(scene);
+    }
+
+    @Override
+    public void initListeners() {
+
     }
 }
