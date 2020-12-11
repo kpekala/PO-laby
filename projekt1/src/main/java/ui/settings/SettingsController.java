@@ -1,15 +1,23 @@
 package ui.settings;
 
-import javafx.event.ActionEvent;
+import com.google.common.eventbus.EventBus;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 public class SettingsController {
     @FXML
-    private Button button;
+    public Button buttonStart;
 
     @FXML
-    void buttonHandle(ActionEvent event) {
+    public Text text;
 
+    private EventBus eventBus = new EventBus();
+
+
+    @FXML
+    void onStartClicked(MouseEvent event){
+        eventBus.post("Zaczynajmy");
     }
 }
