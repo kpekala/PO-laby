@@ -1,7 +1,7 @@
 package ui.settings;
 
 import javafx.scene.control.Button;
-import logic.GameConfig;
+import logic.model.GameConfig;
 import ui.app.App;
 import ui.base.BaseStage;
 
@@ -15,7 +15,7 @@ public class SettingsStage extends BaseStage {
     public void initListeners() {
         Button startButton = (Button) getScene().lookup("#buttonStart");
         startButton.setOnMouseClicked(event ->{
-            app.onStartGame(new GameConfig(10, 20, 20));
+            app.onStartGame(new GameConfig(10, 5, 5));
         });
     }
 }

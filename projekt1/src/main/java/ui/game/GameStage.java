@@ -14,11 +14,13 @@ public class GameStage extends BaseStage {
     private final StatisticsFragment statisticsFragment;
     private final MenuFragment menuFragment;
 
+    private final GamePresenter gamePresenter = new GamePresenter(this);
+
     public GameStage(App app, int width, int height, String title) {
         super(app, width, height);
-        gameFragment = new GameFragment(this);
-        statisticsFragment = new StatisticsFragment(this);
-        menuFragment = new MenuFragment(this);
+        gameFragment = new GameFragment(this, gamePresenter);
+        statisticsFragment = new StatisticsFragment(this, gamePresenter);
+        menuFragment = new MenuFragment(this, gamePresenter);
 
         setUpScene(width, height);
         setTitle(title);
@@ -38,5 +40,21 @@ public class GameStage extends BaseStage {
     @Override
     public void initListeners() {
 
+    }
+
+    public GameFragment getGameFragment() {
+        return gameFragment;
+    }
+
+    public StatisticsFragment getStatisticsFragment() {
+        return statisticsFragment;
+    }
+
+    public MenuFragment getMenuFragment() {
+        return menuFragment;
+    }
+
+    public GamePresenter getPresenter() {
+        return gamePresenter;
     }
 }

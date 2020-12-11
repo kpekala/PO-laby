@@ -1,10 +1,8 @@
 package ui.app;
 
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import logic.GameConfig;
+import logic.model.GameConfig;
 import ui.game.GameStage;
 import ui.settings.SettingsStage;
 
@@ -32,5 +30,6 @@ public class App extends Application {
     public void onStartGame(GameConfig gameConfig){
         settingsStage.hide();
         gameStage.show();
+        gameStage.getPresenter().startGame(gameConfig);
     }
 }
