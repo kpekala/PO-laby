@@ -2,58 +2,56 @@ package logic.model;
 
 
 import logic.map.WorldMap;
-import logic.model.animal.MoveDirection;
+import utils.RandomUtils;
 
-import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class Animal implements IMapElement {
 
+    public static int GENES_NUMBER = 32;
+
     private MapDirection mapDirection;
     private Vector2d position;
-    private WorldMap map;
+    private final WorldMap map;
+    private int energy;
+    private int[] genes;
 
-    public Animal(){
-        //Teraz niebezpiecznie jest go używać, co z obiektem map?
-        this.mapDirection = MapDirection.NORTH;
-        this.position = new Vector2d(2,2);
-    }
-
-    public Animal(WorldMap map){
+    public Animal(WorldMap map, Vector2d initialPosition, int energyAtStart){
         this.map = map;
-        this.mapDirection = MapDirection.NORTH;
-        this.position = new Vector2d(2,2);
-    }
-
-    public Animal(WorldMap map, Vector2d initialPosition){
-        this.map = map;
-        this.mapDirection = MapDirection.NORTH;
+        this.mapDirection = new MapDirection(0);
         this.position = initialPosition;
+        this.energy = energyAtStart;
+        this.genes = new int[GENES_NUMBER];
+        generateGenes();
     }
-    public void move(MoveDirection direction){
-        switch (direction){
-            case RIGHT -> this.mapDirection = this.mapDirection.next();
-            case LEFT -> this.mapDirection = this.mapDirection.previous();
-            default -> {
-                Vector2d moveVector = this.mapDirection.toUnitVector();
-                Vector2d newPosition;
-                if(direction == MoveDirection.FORWARD)
-                    newPosition = this.position.add(moveVector);
-                else
-                    newPosition = this.position.subtract(moveVector);
-                if(map.canMoveTo(newPosition)){
-                    Vector2d oldPosition = this.position;
-                    this.position = newPosition;
-                    //positionChanged(oldPosition, newPosition);
-                }
+
+    private void generateGenes() {
+        RandomUtils randomUtils = new RandomUtils();
+        for(int i = 0; i<GENES_NUMBER; i++){
+            genes[i] = randomUtils.randomAngle();
+        }
+        int k=0;
+        for(int i = 0; i<MapDirection.ANGLES_NUMBER; i++){
+            int finalI = i;
+            if(IntStream.of(genes).noneMatch(x -> x == finalI)){
+                genes[k] = i;
+                k++;
             }
         }
+    }
+
+
+    public void move(){
 
     }
 
-    @Override
-    public String toString(){
-        return mapDirection.code();
+    public void changeDirection(){
+
+    }
+
+    public void updateEnergy(int energyDelta){
+        this.energy += energyDelta;
     }
 
     @Override
