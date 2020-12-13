@@ -1,12 +1,6 @@
 package ui.fragment;
 
 
-import com.sun.javafx.geom.Rectangle;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import logic.model.GameConfig;
 import logic.model.Vector2d;
@@ -15,7 +9,6 @@ import ui.base.BaseStage;
 import ui.game.GamePresenter;
 import utils.Colors;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class GameFragment extends BaseFragment {
@@ -23,12 +16,13 @@ public class GameFragment extends BaseFragment {
     private final GamePresenter gamePresenter;
 
     private Region[][] cells;
+    private int index;
 
-    public GameFragment(BaseStage baseStage, GamePresenter gamePresenter) {
-        super(baseStage,
-                new Vector2d(0, 0),
-                new Vector2d((int) (baseStage.getStageWidth() * 0.7), (int) (baseStage.getStageHeight() * 0.8)));
+
+    public GameFragment(BaseStage baseStage, GamePresenter gamePresenter, Vector2d pos, Vector2d size, int index) {
+        super(baseStage, pos, size);
         this.gamePresenter = gamePresenter;
+        this.index = index;
     }
 
     public void init(GameConfig config){
@@ -39,7 +33,10 @@ public class GameFragment extends BaseFragment {
         for(int i=0; i<config.getSizeY(); i++)
             for(int j=0; j<config.getSizeX(); j++){
                 Region cell = new Region();
+
                 cell.setStyle("-fx-background-color: " + Colors.getGrey(new Random().nextDouble()));
+                if (index == 1)
+                    cell.setStyle("-fx-background-color: " + Colors.getGrey(1 - (new Random().nextDouble() / 5)));
 
                 int cellX = j * cellSizeX;
                 int cellY = i * cellSizeY;

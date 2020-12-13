@@ -7,6 +7,7 @@ public class GamePresenter {
     private final GameStage gameStage;
 
     private GameConfig gameConfig;
+    private int simulationsNumber = 1;
     private Simulation simulation;
 
     public GamePresenter(GameStage gameStage) {
@@ -20,7 +21,12 @@ public class GamePresenter {
 
     public void startGame(GameConfig gameConfig) {
         this.gameConfig = gameConfig;
-        gameStage.getGameFragment().init(gameConfig);
+        if(!gameConfig.isSingleSimulation())
+            simulationsNumber = 2;
+        for(int i=0; i<simulationsNumber; i++){
+            gameStage.getGameFragment(i).init(gameConfig);
+            gameStage.getMenuFragment(i).init(gameConfig);
+        }
     }
 
 }

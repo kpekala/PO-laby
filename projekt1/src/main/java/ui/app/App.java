@@ -15,7 +15,6 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage){
         settingsStage = new SettingsStage(this, 300, 500, "Ustawienia", "/settings.fxml");
-        gameStage = new GameStage(this, 1200, 800, "Symulacja");
         settingsStage.show();
     }
 
@@ -28,6 +27,8 @@ public class App extends Application {
     }
 
     public void onStartGame(GameConfig gameConfig){
+        gameStage = new GameStage(this, 1200, 800, "Symulacja", gameConfig.isSingleSimulation());
+
         settingsStage.hide();
         gameStage.show();
         gameStage.getPresenter().startGame(gameConfig);

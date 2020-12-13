@@ -1,9 +1,8 @@
 package logic.model;
 
 
-
-
 import logic.map.WorldMap;
+import logic.model.animal.MoveDirection;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -45,20 +44,11 @@ public class Animal implements IMapElement {
                 if(map.canMoveTo(newPosition)){
                     Vector2d oldPosition = this.position;
                     this.position = newPosition;
-                    positionChanged(oldPosition, newPosition);
+                    //positionChanged(oldPosition, newPosition);
                 }
             }
         }
 
-    }
-
-    private void  positionChanged(Vector2d oldPosition, Vector2d newPosition){
-        for (IPositionChangeObserver observer: observers)
-            observer.positionChanged(oldPosition, newPosition);
-    }
-
-    public void addObserver(IPositionChangeObserver observer){
-        this.observers.add(observer);
     }
 
     @Override
