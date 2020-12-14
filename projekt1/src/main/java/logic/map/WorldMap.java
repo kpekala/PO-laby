@@ -1,6 +1,6 @@
 package logic.map;
 
-import logic.model.Animal;
+import logic.model.animal.Animal;
 import logic.model.Vector2d;
 
 public class WorldMap implements IWorldMap {

@@ -1,5 +1,7 @@
-package logic.model;
+package logic.model.animal;
 
+
+import logic.model.Vector2d;
 
 public class Grass implements IMapElement {
     private final Vector2d position;

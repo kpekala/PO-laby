@@ -1,9 +1,11 @@
-package logic.model;
+package logic.model.animal;
 
 
 import logic.map.WorldMap;
+import logic.model.Vector2d;
 import utils.RandomUtils;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
@@ -15,6 +17,8 @@ public class Animal implements IMapElement {
     private Vector2d position;
     private final WorldMap map;
     private int energy;
+
+
     private int[] genes;
 
     public Animal(WorldMap map, Vector2d initialPosition, int energyAtStart){
@@ -39,6 +43,7 @@ public class Animal implements IMapElement {
                 k++;
             }
         }
+        Arrays.sort(genes);
     }
 
 
@@ -76,5 +81,9 @@ public class Animal implements IMapElement {
     @Override
     public int hashCode() {
         return Objects.hash(mapDirection, position, map);
+    }
+
+    public int[] getGenes() {
+        return genes;
     }
 }
