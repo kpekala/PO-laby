@@ -1,4 +1,4 @@
-import logic.model.animal.Animal;
+import logic.model.map.animal.Animal;
 import logic.model.Vector2d;
 import org.junit.Test;
 

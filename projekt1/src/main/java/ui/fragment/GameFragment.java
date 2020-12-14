@@ -1,13 +1,16 @@
 package ui.fragment;
 
 
+import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 import logic.model.GameConfig;
 import logic.model.Vector2d;
 import ui.base.BaseFragment;
 import ui.base.BaseStage;
 import ui.game.GamePresenter;
 import utils.Colors;
+import utils.Styles;
 
 import java.util.Random;
 
@@ -59,4 +62,6 @@ public class GameFragment extends BaseFragment {
     public void initFragment() {
 
     }
+
+
 }

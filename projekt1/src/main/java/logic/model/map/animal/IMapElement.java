@@ -1,4 +1,4 @@
-package logic.model.animal;
+package logic.model.map.animal;
 
 import logic.model.Vector2d;
 

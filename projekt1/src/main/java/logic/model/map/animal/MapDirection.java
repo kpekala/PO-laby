@@ -1,4 +1,4 @@
-package logic.model.animal;
+package logic.model.map.animal;
 
 public class MapDirection {
     private int angle;
