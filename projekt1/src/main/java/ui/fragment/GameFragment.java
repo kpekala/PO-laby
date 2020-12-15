@@ -9,6 +9,7 @@ import logic.model.Vector2d;
 import ui.base.BaseFragment;
 import ui.base.BaseStage;
 import ui.game.GamePresenter;
+import ui.model.MapModel;
 import utils.Colors;
 import utils.Styles;
 
@@ -63,5 +64,7 @@ public class GameFragment extends BaseFragment {
 
     }
 
-
+    public void update(MapModel mapModel){
+        System.out.println("Map is updating!");
+    }
 }

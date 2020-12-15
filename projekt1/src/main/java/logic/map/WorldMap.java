@@ -3,6 +3,8 @@ package logic.map;
 import logic.model.map.Grass;
 import logic.model.map.animal.Animal;
 import logic.model.Vector2d;
+import ui.model.AnimalModel;
+import ui.model.MapModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,5 +38,15 @@ public class WorldMap implements IWorldMap {
     @Override
     public Object objectAt(Vector2d position) {
         return null;
+    }
+
+    public ArrayList<AnimalModel> getAnimalModels(){
+        ArrayList<AnimalModel> animalModels = new ArrayList<>();
+        for(Vector2d pos : animals.keySet()){
+            //Sortowanie potrzebne!
+            if(isOccupied(pos))
+                animalModels.add(new AnimalModel(animals.get(pos).get(0)));
+        }
+        return animalModels;
     }
 }

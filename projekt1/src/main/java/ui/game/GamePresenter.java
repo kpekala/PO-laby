@@ -2,7 +2,8 @@ package ui.game;
 
 import logic.map.WorldMap;
 import logic.model.GameConfig;
-import logic.Simulation;
+import logic.simulation.Simulation;
+import ui.model.MapModel;
 
 public class GamePresenter {
     private final GameStage gameStage;
@@ -48,5 +49,14 @@ public class GamePresenter {
         simulations[index].resumeGame();
     }
 
+    public void onAppStop(){
+        for(Simulation simulation: simulations){
+            simulation.finish();
+        }
+    }
+
+    public void onMapUpdate(int index, MapModel mapModel){
+        gameStage.getGameFragment(index).update(mapModel);
+    }
 }
 

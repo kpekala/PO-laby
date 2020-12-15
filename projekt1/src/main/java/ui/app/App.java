@@ -33,4 +33,10 @@ public class App extends Application {
         gameStage.show();
         gameStage.getPresenter().startGame(gameConfig);
     }
+
+    @Override
+    public  void stop(){
+        System.out.println("Stage is closing");
+        gameStage.getPresenter().onAppStop();
+    }
 }

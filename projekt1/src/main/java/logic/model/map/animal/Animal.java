@@ -86,4 +86,12 @@ public class Animal implements IMapElement {
     public int[] getGenes() {
         return genes;
     }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
 }
