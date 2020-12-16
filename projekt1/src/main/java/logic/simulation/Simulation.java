@@ -26,6 +26,8 @@ public class Simulation extends ThreadSimulation {
         super(index);
         this.map = map;
         this.presenter = presenter;
+        animals = new ArrayList<>();
+        grasses = new ArrayList<>();
         generateMapElements();
     }
 
@@ -50,6 +52,14 @@ public class Simulation extends ThreadSimulation {
         for(Animal animal: animals){
             animal.move();
         }
+        printK();
+    }
+
+    private void printK(){
+        for(Animal animal: animals){
+            System.out.print(animal.getMapDirection().getCoordinates() + "; ");
+        }
+        System.out.println(" ");
     }
 
 }

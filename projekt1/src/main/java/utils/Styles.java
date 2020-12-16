@@ -6,4 +6,8 @@ public class Styles {
     public static Font mediumFont = new Font(16);
     public static Font bigFont = new Font(20);
     public static Font smallFont = new Font(12);
+
+    public static String getCSSBackground(String color){
+        return "-fx-background-color: " + color;
+    }
 }

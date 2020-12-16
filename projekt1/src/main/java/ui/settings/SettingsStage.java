@@ -15,7 +15,7 @@ public class SettingsStage extends BaseStage {
     public void initListeners() {
         Button startButton = (Button) getScene().lookup("#buttonStart");
         startButton.setOnMouseClicked(event ->{
-            app.onStartGame(new GameConfig(10, 5, 5, false));
+            app.onStartGame(new GameConfig(10, 10, 10, false));
         });
     }
 }

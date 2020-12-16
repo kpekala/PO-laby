@@ -22,6 +22,8 @@ public class WorldMap implements IWorldMap {
     public WorldMap(int width, int height) {
         this.width = width;
         this.height = height;
+        animals = new HashMap<>();
+        grassElements = new HashMap<>();
     }
 
     @Override

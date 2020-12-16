@@ -52,12 +52,14 @@ public class Animal implements IMapElement {
         position = position.add(mapDirection.getCoordinates());
         adjustPosition();
         map.onAnimalMoved(this, oldPosition, position);
+        if(oldPosition.equals(position))
+            System.out.println("XD ?");
     }
 
     private void adjustPosition() {
-        if (position.x > map.getWidth() - 1)
+        if (position.x >= map.getWidth())
             position.x = position.x - map.getWidth();
-        if (position.y > map.getHeight() - 1)
+        if (position.y >= map.getHeight())
             position.y = position.y - map.getHeight();
         if (position.x < 0)
             position.x =  map.getWidth() + position.x;
