@@ -3,7 +3,8 @@ package logic.model;
 import java.util.Objects;
 
 public class Vector2d{
-    public final int x,y;
+    public int x;
+    public int y;
 
     public Vector2d(int x, int y) {
         this.x = x;

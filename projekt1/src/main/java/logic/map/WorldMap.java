@@ -6,6 +6,8 @@ import logic.model.Vector2d;
 import ui.model.AnimalModel;
 import ui.model.MapModel;
 
+import javax.swing.*;
+import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,6 +32,15 @@ public class WorldMap implements IWorldMap {
         animals.get(pos).add(animal);
     }
 
+    public void remove(Animal animal){
+        Vector2d pos = animal.getPosition();
+        if(animals.get(pos) == null)
+            return;
+        animals.get(pos).remove(animal);
+        if(animals.get(pos).size() == 0)
+            animals.remove(pos);
+    }
+
     @Override
     public boolean isOccupied(Vector2d position) {
         return animals.get(position) != null && animals.get(position).size() > 0;
@@ -48,5 +59,18 @@ public class WorldMap implements IWorldMap {
                 animalModels.add(new AnimalModel(animals.get(pos).get(0)));
         }
         return animalModels;
+    }
+
+    public void onAnimalMoved(Animal animal, Vector2d oldPosition, Vector2d newPosition){
+        remove(animal);
+        place(animal);
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

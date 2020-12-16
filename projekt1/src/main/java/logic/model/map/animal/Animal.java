@@ -48,7 +48,21 @@ public class Animal implements IMapElement {
 
 
     public void move(){
+        Vector2d oldPosition = position;
+        position = position.add(mapDirection.getCoordinates());
+        adjustPosition();
+        map.onAnimalMoved(this, oldPosition, position);
+    }
 
+    private void adjustPosition() {
+        if (position.x > map.getWidth() - 1)
+            position.x = position.x - map.getWidth();
+        if (position.y > map.getHeight() - 1)
+            position.y = position.y - map.getHeight();
+        if (position.x < 0)
+            position.x =  map.getWidth() + position.x;
+        if (position.y < 0)
+            position.y = map.getHeight() + position.y;
     }
 
     public void changeDirection(){
