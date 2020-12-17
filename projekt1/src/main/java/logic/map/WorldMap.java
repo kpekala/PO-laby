@@ -34,13 +34,17 @@ public class WorldMap implements IWorldMap {
         animals.get(pos).add(animal);
     }
 
-    public void remove(Animal animal){
-        Vector2d pos = animal.getPosition();
-        if(animals.get(pos) == null)
+    public void remove(Animal animal,Vector2d oldPosition){
+        if(animals.get(oldPosition) == null){
+            System.out.println("Auć!");
             return;
-        animals.get(pos).remove(animal);
-        if(animals.get(pos).size() == 0)
-            animals.remove(pos);
+        }
+        if(!animals.get(oldPosition).contains(animal)){
+            System.out.println(":)");
+        }
+        animals.get(oldPosition).remove(animal);
+        if(animals.get(oldPosition).size() == 0)
+            animals.remove(oldPosition);
     }
 
     @Override
@@ -64,7 +68,7 @@ public class WorldMap implements IWorldMap {
     }
 
     public void onAnimalMoved(Animal animal, Vector2d oldPosition, Vector2d newPosition){
-        remove(animal);
+        remove(animal, oldPosition);
         place(animal);
     }
 

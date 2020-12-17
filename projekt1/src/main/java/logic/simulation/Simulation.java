@@ -6,13 +6,12 @@ import logic.model.map.animal.Animal;
 import logic.model.GameConfig;
 import logic.model.map.Grass;
 import logic.model.Vector2d;
-import org.checkerframework.checker.units.qual.A;
 import ui.game.GamePresenter;
+import ui.model.AnimalModel;
 import ui.model.MapModel;
 import utils.RandomUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static java.lang.Thread.sleep;
 
@@ -22,6 +21,7 @@ public class Simulation extends ThreadSimulation {
 
     private WorldMap map;
     private GamePresenter presenter;
+
     public Simulation(WorldMap map, GamePresenter presenter, int index) {
         super(index);
         this.map = map;
@@ -35,8 +35,8 @@ public class Simulation extends ThreadSimulation {
         RandomUtils randomUtils = new RandomUtils();
         GameConfig config = presenter.getGameConfig();
         for(int i=0; i<config.getAnimalsNumber(); i++){
-            Vector2d pos = randomUtils.randomPosition(new Vector2d(config.getSizeX(), config.getSizeY()));
-            Animal animal = new Animal(map,pos,10);
+            Vector2d pos = randomUtils.randomPosition(new Vector2d(config.getWidth(), config.getHeight()));
+            Animal animal = new Animal(map,pos,config.getStartEnergy());
             animals.add(animal);
             map.place(animal);
         }
@@ -44,22 +44,19 @@ public class Simulation extends ThreadSimulation {
 
     @Override
     protected void processDay(){
-        moveAnimals();
-        presenter.onMapUpdate(index, new MapModel(map.getAnimalModels()));
-    }
-
-    private void moveAnimals() {
         for(Animal animal: animals){
+            animal.changeDirection();
             animal.move();
         }
-        printK();
+        presenter.onMapUpdate(index, new MapModel(getAnimalModels()));
     }
 
-    private void printK(){
-        for(Animal animal: animals){
-            System.out.print(animal.getMapDirection().getCoordinates() + "; ");
+    public ArrayList<AnimalModel> getAnimalModels() {
+        ArrayList<AnimalModel> animalModels = new ArrayList<>();
+        for (Animal animal : animals) {
+            animalModels.add(new AnimalModel(animal));
         }
-        System.out.println(" ");
+        return animalModels;
     }
 
 }

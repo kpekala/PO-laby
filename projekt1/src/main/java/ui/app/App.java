@@ -3,6 +3,7 @@ package ui.app;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import logic.model.GameConfig;
+import logic.model.Vector2d;
 import ui.game.GameStage;
 import ui.settings.SettingsStage;
 
@@ -16,7 +17,7 @@ public class App extends Application {
     public void start(Stage primaryStage){
        //settingsStage = new SettingsStage(this, 300, 500, "Ustawienia", "/settings.fxml");
         //settingsStage.show();
-        onStartGame(new GameConfig(80, 20, 20, false));
+        onStartGame(new GameConfig(10, 5, 5, false, 5,1, new Vector2d(3,3)));
     }
 
     public static void main(String[] args) {

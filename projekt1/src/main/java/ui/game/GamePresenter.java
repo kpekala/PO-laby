@@ -36,7 +36,7 @@ public class GamePresenter {
         int factor = gameConfig.isSingleSimulation() ? 1 : 2;
         simulations = new Simulation[factor];
         for(int i=0; i<factor; i++){
-            simulations[i] = new Simulation(new WorldMap(gameConfig.getSizeX(), gameConfig.getSizeY()),this, i);
+            simulations[i] = new Simulation(new WorldMap(gameConfig.getWidth(), gameConfig.getHeight()),this, i);
             simulations[i].startGame();
         }
     }

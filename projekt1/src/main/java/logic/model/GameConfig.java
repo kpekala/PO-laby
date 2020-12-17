@@ -1,17 +1,37 @@
 package logic.model;
 
 public class GameConfig {
+    public GameConfig(int animalsNumber, int width, int height, boolean singleSimulation, int startEnergy, int moveEnergy, Vector2d jungleSize) {
+        this.animalsNumber = animalsNumber;
+        this.width = width;
+        this.height = height;
+        this.singleSimulation = singleSimulation;
+        this.startEnergy = startEnergy;
+        this.moveEnergy = moveEnergy;
+        this.jungleSize = jungleSize;
+    }
+
     private int animalsNumber;
-    private int sizeX;
-    private int sizeY;
+    private int width;
+    private int height;
     private boolean singleSimulation;
 
-    public GameConfig(int animalsNumber, int sizeX, int sizeY, boolean singleSimulation) {
-        this.animalsNumber = animalsNumber;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        this.singleSimulation = singleSimulation;
+    public int getStartEnergy() {
+        return startEnergy;
     }
+
+    public int getMoveEnergy() {
+        return moveEnergy;
+    }
+
+    public Vector2d getJungleSize() {
+        return jungleSize;
+    }
+
+    private int startEnergy;
+    private int moveEnergy;
+    private Vector2d jungleSize;
+
 
     public int getAnimalsNumber() {
         return animalsNumber;
@@ -21,20 +41,20 @@ public class GameConfig {
         this.animalsNumber = animalsNumber;
     }
 
-    public int getSizeX() {
-        return sizeX;
+    public int getWidth() {
+        return width;
     }
 
-    public void setSizeX(int sizeX) {
-        this.sizeX = sizeX;
+    public void setWidth(int width) {
+        this.width = width;
     }
 
-    public int getSizeY() {
-        return sizeY;
+    public int getHeight() {
+        return height;
     }
 
-    public void setSizeY(int sizeY) {
-        this.sizeY = sizeY;
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public boolean isSingleSimulation() {

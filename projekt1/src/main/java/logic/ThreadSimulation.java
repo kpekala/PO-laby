@@ -28,7 +28,7 @@ public abstract class ThreadSimulation {
             if(isRunning)
                 processDay();
             try {
-                Thread.sleep(200);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

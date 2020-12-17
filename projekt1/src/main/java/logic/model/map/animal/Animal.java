@@ -7,6 +7,7 @@ import utils.RandomUtils;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 public class Animal implements IMapElement {
@@ -51,9 +52,8 @@ public class Animal implements IMapElement {
         Vector2d oldPosition = position;
         position = position.add(mapDirection.getCoordinates());
         adjustPosition();
+
         map.onAnimalMoved(this, oldPosition, position);
-        if(oldPosition.equals(position))
-            System.out.println("XD ?");
     }
 
     private void adjustPosition() {
@@ -68,7 +68,8 @@ public class Animal implements IMapElement {
     }
 
     public void changeDirection(){
-
+        int newAngle = genes[new Random().nextInt(32)];
+        mapDirection.update(newAngle);
     }
 
     public void updateEnergy(int energyDelta){

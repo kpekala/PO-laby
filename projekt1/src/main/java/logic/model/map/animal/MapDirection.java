@@ -6,8 +6,8 @@ public class MapDirection {
     private int angle;
     public static int ANGLES_NUMBER = 8;
 
-    int[] kx = {0, 1, 1, 1, 0, -1, -1, -1};
-    int[] ky = {1, 1, 0, -1, -1, -1, 0, 1};
+    int[] kx = {0, 1, 1,  1,  0, -1, -1, -1};
+    int[] ky = {1, 1, 0, -1, -1, -1,  0,  1};
 
     public MapDirection(int angle){
         this.angle = angle;
