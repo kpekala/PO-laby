@@ -9,6 +9,7 @@ import ui.base.BaseFragment;
 import ui.base.BaseStage;
 import ui.game.GamePresenter;
 import ui.model.AnimalModel;
+import ui.model.Jungle;
 import ui.model.MapModel;
 import utils.Colors;
 import utils.Styles;
@@ -22,6 +23,7 @@ public class GameFragment extends BaseFragment {
 
     private MapModel lastModel;
     private MapModel model;
+    private Jungle jungle;
 
     Runnable updater = new Runnable() {
 
@@ -38,6 +40,7 @@ public class GameFragment extends BaseFragment {
     }
 
     public void init(GameConfig config){
+        jungle = new Jungle(config);
         cells = new Region[config.getHeight()][config.getWidth()];
         int cellSize = Math.min(size.x / config.getWidth(), size.y / config.getHeight());
         int factorX = (size.x - cellSize * config.getWidth()) / 2;
@@ -47,10 +50,9 @@ public class GameFragment extends BaseFragment {
         for(int i = 0; i<config.getHeight(); i++)
             for(int j = 0; j<config.getWidth(); j++){
                 Region cell = new Region();
-
-                cell.setStyle(Styles.getCSSBackground(Colors.getMapColor(index)));
                 int cellX = j * cellSize;
                 int cellY = (config.getHeight() -(i+1)) * cellSize;
+                cell.setStyle(Styles.getCSSBackground(getColor(j, i)));
 
                 cell.setTranslateX(cellX + factorX);
                 cell.setTranslateY(cellY + factorY);
@@ -59,6 +61,11 @@ public class GameFragment extends BaseFragment {
                 cells[i][j] = cell;
                 getChildren().add(cell);
             }
+    }
+
+    private String getColor(int x, int y){
+        Vector2d v = new Vector2d(x,y);
+        return (jungle.getUpperLeft().precedes(v) && jungle.getLowerRight().follows(v))? "yellow" : Colors.getMapColor(index);
     }
 
     @Override
@@ -72,11 +79,12 @@ public class GameFragment extends BaseFragment {
     }
 
     public void update(){
-        for(int i = 0; i<cells.length; i++)
-            for(int j = 0; j<cells[i].length; j++){
-                cells[i][j].setStyle(Styles.getCSSBackground(Colors.getMapColor(index)));
+        if(lastModel!= null){
+            for(AnimalModel animal: lastModel.getAnimalModels()){
+                Vector2d pos = animal.getPosition();
+                cells[pos.y][pos.x].setStyle("-fx-background-color: " +getColor(pos.x, pos.y));
             }
-        System.out.println(index + " : " + model.getAnimalModels().size());
+        }
         for(AnimalModel animal: model.getAnimalModels()){
             Vector2d pos = animal.getPosition();
             cells[pos.y][pos.x].setStyle("-fx-background-color: " +Colors.getGrey(0.3));
@@ -87,21 +95,5 @@ public class GameFragment extends BaseFragment {
     public void update(MapModel mapModel){
         model = mapModel;
         Platform.runLater(updater);
-        /*if(lastModel != null){
-            for(AnimalModel animal: lastModel.getAnimalModels()){
-                Vector2d pos = animal.getPosition();
-                cells[pos.y][pos.x].setStyle(Styles.getCSSBackground(Colors.getMapColor(index)));
-            }
-        }*/
-        /*for(int i = 0; i<cells.length; i++)
-            for(int j = 0; j<cells[i].length; j++){
-                cells[i][j].setStyle(Styles.getCSSBackground(Colors.getMapColor(index)));
-            }
-        System.out.println(index + " : " + mapModel.getAnimalModels().size());
-        for(AnimalModel animal: mapModel.getAnimalModels()){
-            Vector2d pos = animal.getPosition();
-            cells[pos.y][pos.x].setStyle("-fx-background-color: " +Colors.getGrey(0.3));
-        }
-        lastModel = mapModel;*/
     }
 }

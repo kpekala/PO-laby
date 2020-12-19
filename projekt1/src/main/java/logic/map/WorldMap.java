@@ -57,6 +57,11 @@ public class WorldMap implements IWorldMap {
         return null;
     }
 
+    @Override
+    public void processEating() {
+
+    }
+
     public ArrayList<AnimalModel> getAnimalModels(){
         ArrayList<AnimalModel> animalModels = new ArrayList<>();
         for(Vector2d pos : animals.keySet()){

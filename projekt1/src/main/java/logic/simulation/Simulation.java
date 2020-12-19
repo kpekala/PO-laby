@@ -8,6 +8,7 @@ import logic.model.map.Grass;
 import logic.model.Vector2d;
 import ui.game.GamePresenter;
 import ui.model.AnimalModel;
+import ui.model.Jungle;
 import ui.model.MapModel;
 import utils.RandomUtils;
 
@@ -21,11 +22,15 @@ public class Simulation extends ThreadSimulation {
 
     private WorldMap map;
     private GamePresenter presenter;
+    private GameConfig gameConfig;
+    private Jungle jungle;
 
     public Simulation(WorldMap map, GamePresenter presenter, int index) {
         super(index);
         this.map = map;
         this.presenter = presenter;
+        this.gameConfig = presenter.getGameConfig();
+        this.jungle = new Jungle(this.gameConfig);
         animals = new ArrayList<>();
         grasses = new ArrayList<>();
         generateMapElements();
@@ -44,11 +49,30 @@ public class Simulation extends ThreadSimulation {
 
     @Override
     protected void processDay(){
+        removeDeadAnimals();
         for(Animal animal: animals){
+            animal.updateEnergy(-gameConfig.getMoveEnergy());
             animal.changeDirection();
             animal.move();
         }
+        map.processEating();
+        addGrass();
         presenter.onMapUpdate(index, new MapModel(getAnimalModels()));
+    }
+
+    private void addGrass() {
+
+    }
+
+    private void removeDeadAnimals(){
+        ArrayList<Animal> deadAnimals = new ArrayList<>();
+        for(Animal animal: animals){
+            if(animal.getEnergy() <= 0)
+                deadAnimals.add(animal);
+        }
+        for(Animal animal: deadAnimals){
+            animals.remove(animal);
+        }
     }
 
     public ArrayList<AnimalModel> getAnimalModels() {

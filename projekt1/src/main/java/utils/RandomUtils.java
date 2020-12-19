@@ -16,4 +16,9 @@ public class RandomUtils {
     public Vector2d randomPosition(Vector2d upperRight){
         return new Vector2d(generator.nextInt(upperRight.x), generator.nextInt(upperRight.y));
     }
+
+    public Vector2d randomPositionOnRect(Vector2d lowerLeft, Vector2d upperRight){
+        return new Vector2d(generator.nextInt(upperRight.x - lowerLeft.x) + lowerLeft.x,
+                generator.nextInt(upperRight.y - lowerLeft.y) + lowerLeft.y);
+    }
 }
