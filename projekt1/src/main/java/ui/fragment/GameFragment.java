@@ -52,7 +52,7 @@ public class GameFragment extends BaseFragment {
                 Region cell = new Region();
                 int cellX = j * cellSize;
                 int cellY = (config.getHeight() -(i+1)) * cellSize;
-                cell.setStyle(Styles.getCSSBackground(getColor(j, i)));
+                cell.setStyle(Styles.getCSSBackground(getMapColor(j, i)));
 
                 cell.setTranslateX(cellX + factorX);
                 cell.setTranslateY(cellY + factorY);
@@ -63,9 +63,9 @@ public class GameFragment extends BaseFragment {
             }
     }
 
-    private String getColor(int x, int y){
+    private String getMapColor(int x, int y){
         Vector2d v = new Vector2d(x,y);
-        return (jungle.getUpperLeft().precedes(v) && jungle.getLowerRight().follows(v))? "yellow" : Colors.getMapColor(index);
+        return (jungle.getLowerLeft().precedes(v) && jungle.getUpperRight().follows(v))? "yellow" : Colors.getMapColor(index);
     }
 
     @Override
@@ -82,8 +82,14 @@ public class GameFragment extends BaseFragment {
         if(lastModel!= null){
             for(AnimalModel animal: lastModel.getAnimalModels()){
                 Vector2d pos = animal.getPosition();
-                cells[pos.y][pos.x].setStyle("-fx-background-color: " +getColor(pos.x, pos.y));
+                cells[pos.y][pos.x].setStyle("-fx-background-color: " + getMapColor(pos.x, pos.y));
             }
+            for(Vector2d grass: lastModel.getGrassModels()){
+                cells[grass.y][grass.x].setStyle("-fx-background-color: " + getMapColor(grass.x, grass.y));
+            }
+        }
+        for(Vector2d grass: model.getGrassModels()){
+            cells[grass.y][grass.x].setStyle("-fx-background-color: " + Colors.getGrassColor());
         }
         for(AnimalModel animal: model.getAnimalModels()){
             Vector2d pos = animal.getPosition();

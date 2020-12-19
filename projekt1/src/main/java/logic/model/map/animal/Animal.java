@@ -58,13 +58,13 @@ public class Animal implements IMapElement {
 
     private void adjustPosition() {
         if (position.x >= map.getWidth())
-            position.x = position.x - map.getWidth();
+            position = new Vector2d(position.x - map.getWidth(), position.y);
         if (position.y >= map.getHeight())
-            position.y = position.y - map.getHeight();
+            position = new Vector2d(position.x, position.y - map.getHeight());
         if (position.x < 0)
-            position.x =  map.getWidth() + position.x;
+            position =  new Vector2d(map.getWidth() + position.x, position.y);
         if (position.y < 0)
-            position.y = map.getHeight() + position.y;
+            position = new Vector2d(position.x, map.getHeight() + position.y);
     }
 
     public void changeDirection(){

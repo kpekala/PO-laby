@@ -4,34 +4,38 @@ import logic.model.GameConfig;
 import logic.model.Vector2d;
 
 public class Jungle {
-    private Vector2d lowerRight;
-    private Vector2d upperLeft;
+    private Vector2d upperRight;
+    private Vector2d lowerLeft;
 
-    public Jungle(Vector2d lowerRight, Vector2d upperLeft) {
-        this.lowerRight = lowerRight;
-        this.upperLeft = upperLeft;
+    public Jungle(Vector2d upperRight, Vector2d lowerLeft) {
+        this.upperRight = upperRight;
+        this.lowerLeft = lowerLeft;
     }
 
     public Jungle(GameConfig config){
         int jx = config.getJungleSize().x;
         int jy = config.getJungleSize().y;
-        this.upperLeft = new Vector2d(config.getWidth()/2 - jx/2, config.getHeight()/2 - jy/2);
-        this.lowerRight = new Vector2d(config.getWidth()/2 + jx/2 - (1 - jx%2), config.getHeight()/2 + jy/2 -(1 - jy%2));
+        this.lowerLeft = new Vector2d(config.getWidth()/2 - jx/2, config.getHeight()/2 - jy/2);
+        this.upperRight = new Vector2d(config.getWidth()/2 + jx/2 - (1 - jx%2), config.getHeight()/2 + jy/2 -(1 - jy%2));
     }
 
-    public Vector2d getLowerRight() {
-        return lowerRight;
+    public boolean in(Vector2d pos){
+        return pos.follows(lowerLeft) && pos.precedes(upperRight);
     }
 
-    public void setLowerRight(Vector2d lowerRight) {
-        this.lowerRight = lowerRight;
+    public Vector2d getUpperRight() {
+        return upperRight;
     }
 
-    public Vector2d getUpperLeft() {
-        return upperLeft;
+    public void setUpperRight(Vector2d upperRight) {
+        this.upperRight = upperRight;
     }
 
-    public void setUpperLeft(Vector2d upperLeft) {
-        this.upperLeft = upperLeft;
+    public Vector2d getLowerLeft() {
+        return lowerLeft;
+    }
+
+    public void setLowerLeft(Vector2d lowerLeft) {
+        this.lowerLeft = lowerLeft;
     }
 }

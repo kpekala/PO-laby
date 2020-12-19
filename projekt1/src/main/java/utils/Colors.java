@@ -17,4 +17,8 @@ public class Colors {
     public static String getMapColor(int index){
         return index == 0 ? GREEN : "#32CD32";
     }
+
+    public static String getGrassColor(){
+        return "#808000";
+    }
 }

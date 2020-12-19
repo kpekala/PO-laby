@@ -1,6 +1,7 @@
 package logic.simulation;
 
 import logic.ThreadSimulation;
+import logic.map.MapObserver;
 import logic.map.WorldMap;
 import logic.model.map.animal.Animal;
 import logic.model.GameConfig;
@@ -13,10 +14,12 @@ import ui.model.MapModel;
 import utils.RandomUtils;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.stream.Stream;
 
 import static java.lang.Thread.sleep;
 
-public class Simulation extends ThreadSimulation {
+public class Simulation extends ThreadSimulation implements MapObserver {
     private ArrayList<Animal> animals;
     private ArrayList<Grass> grasses;
 
@@ -33,6 +36,7 @@ public class Simulation extends ThreadSimulation {
         this.jungle = new Jungle(this.gameConfig);
         animals = new ArrayList<>();
         grasses = new ArrayList<>();
+        map.attachObserver(this);
         generateMapElements();
     }
 
@@ -57,11 +61,39 @@ public class Simulation extends ThreadSimulation {
         }
         map.processEating();
         addGrass();
-        presenter.onMapUpdate(index, new MapModel(getAnimalModels()));
+        presenter.onMapUpdate(index, new MapModel(getAnimalModels(), getGrassModels()));
     }
 
-    private void addGrass() {
 
+    private void addGrass() {
+        if(grasses.size() >= gameConfig.getHeight() * gameConfig.getWidth() - 2)
+            return;
+        RandomUtils randomUtils = new RandomUtils();
+        Random rand = randomUtils.generator;
+        //Na dżungli
+        Grass jungleGrass = new Grass(randomUtils.randomPositionOnRect(jungle.getLowerLeft(), jungle.getUpperRight()));
+        grasses.add(jungleGrass);
+        map.placeGrass(jungleGrass);
+        //Poza dzunglą
+        int mapPart = randomUtils.generator.nextInt(4);
+        Vector2d pos =  switch (mapPart){
+            case 0 -> new Vector2d(
+                    rand.nextInt(map.getWidth()),
+                    RandomUtils.intRange(jungle.getUpperRight().y, map.getHeight()));
+            case 1 -> new Vector2d(
+                    RandomUtils.intRange(jungle.getUpperRight().x, map.getWidth()),
+                    rand.nextInt(map.getHeight()));
+            case 2 -> new Vector2d(
+                    rand.nextInt(map.getWidth()),
+                    rand.nextInt(jungle.getLowerLeft().y));
+            case 3 -> new Vector2d(
+                    rand.nextInt(jungle.getLowerLeft().x),
+                    rand.nextInt(map.getHeight()));
+            default -> throw new IllegalStateException("Unexpected value: " + mapPart);
+        };
+        Grass mapGrass = new Grass(pos);
+        grasses.add(mapGrass);
+        map.placeGrass(mapGrass);
     }
 
     private void removeDeadAnimals(){
@@ -83,4 +115,13 @@ public class Simulation extends ThreadSimulation {
         return animalModels;
     }
 
+    public Vector2d[] getGrassModels() {
+        return grasses.stream().map(Grass::getPosition).toArray(Vector2d[]::new);
+    }
+
+
+    @Override
+    public void onGrassRemoved(Grass grass) {
+        grasses.remove(grass);
+    }
 }
