@@ -5,6 +5,7 @@ import logic.map.WorldMap;
 import logic.model.Vector2d;
 import utils.RandomUtils;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
@@ -22,7 +23,7 @@ public class Animal implements IMapElement {
 
     private int[] genes;
 
-    public Animal(WorldMap map, Vector2d initialPosition, int energyAtStart){
+    public Animal(WorldMap map, Vector2d initialPosition, float energyAtStart){
         this.map = map;
         this.mapDirection = new MapDirection(0);
         this.position = initialPosition;
@@ -36,6 +37,32 @@ public class Animal implements IMapElement {
         for(int i = 0; i<GENES_NUMBER; i++){
             genes[i] = randomUtils.randomAngle();
         }
+        correctGenes();
+    }
+
+
+    public void makeBirthGenes(Animal parent1, Animal parent2){
+        int[] genesCounts = new int[3];
+        genesCounts[0] = RandomUtils.intRange(1,30);
+        genesCounts[1] = RandomUtils.intRange(1, 32 - (genesCounts[0] + 1));
+        genesCounts[2] = 32 - (genesCounts[0] + genesCounts[1]);
+        if(genesCounts[0] + genesCounts[1] + genesCounts[2] != 32){
+            System.out.println("Ups");
+        }
+
+        int iter = 0;
+        for(int i=0; i<3; i++){
+            Animal p = i==0 ? parent1 : parent2;
+            for(int j=0; j<genesCounts[i]; j++){
+                genes[iter + j] = p.genes[iter + j];
+            }
+            iter += genesCounts[i];
+        }
+        correctGenes();
+    }
+
+
+    private void correctGenes() {
         int k=0;
         for(int i = 0; i<MapDirection.ANGLES_NUMBER; i++){
             int finalI = i;

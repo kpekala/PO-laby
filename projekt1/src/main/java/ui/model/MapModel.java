@@ -22,6 +22,7 @@ public class MapModel {
         for(AnimalModel model: animalModels){
             float relativeEnergy = model.getEnergy() / maxEnergy;
             relativeEnergy = relativeEnergy < 0 ? 0: relativeEnergy;
+            relativeEnergy = relativeEnergy > 1 ? 1: relativeEnergy;
             model.setRelativeEnergy(1 - relativeEnergy);
         }
     }

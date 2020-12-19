@@ -59,6 +59,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
             animal.move();
         }
         map.eating();
+        map.breeding();
         addGrass();
         presenter.onMapUpdate(index, new MapModel(getAnimalModels(), getGrassModels()));
     }
@@ -122,5 +123,10 @@ public class Simulation extends ThreadSimulation implements MapObserver {
     @Override
     public void onGrassRemoved(Grass grass) {
         grasses.remove(grass);
+    }
+
+    @Override
+    public void onAnimalBorn(Animal animal) {
+        animals.add(animal);
     }
 }

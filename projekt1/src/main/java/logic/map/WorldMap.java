@@ -4,7 +4,10 @@ import logic.model.GameConfig;
 import logic.model.map.Grass;
 import logic.model.map.animal.Animal;
 import logic.model.Vector2d;
+import logic.model.map.animal.MapDirection;
 import ui.model.AnimalModel;
+import utils.RandomUtils;
+import utils.VectorUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -105,6 +108,7 @@ public class WorldMap implements IWorldMap {
     }
 
     public void breeding(){
+        ArrayList<Animal> animalsToBreed = new ArrayList<>();
         for(Vector2d pos: animals.keySet()){
             ArrayList<Animal> posAnimals = animals.get(pos);
             if(posAnimals.size()<2)
@@ -113,10 +117,41 @@ public class WorldMap implements IWorldMap {
             Animal a1 = bestAnimals[0];
             Animal a2 = bestAnimals[1];
             if(canBreed(a1, a2)){
-                a1.updateEnergy(-a1.getEnergy()/4f);
-                a1.updateEnergy(-a2.getEnergy()/4f);
+                float breedEnergy1 = a1.getEnergy()/4f;
+                float breedEnergy2 = a2.getEnergy()/4f;
+                a1.updateEnergy(-breedEnergy1);
+                a2.updateEnergy(-breedEnergy2);
+                Animal newAnimal = breedAnimal(a1, a2, breedEnergy1 + breedEnergy2);
+                animalsToBreed.add(newAnimal);
             }
         }
+        for(Animal animal: animalsToBreed){
+            System.out.println("Breeding!");
+            place(animal);
+            mapObserver.onAnimalBorn(animal);
+        }
+    }
+
+    private Animal breedAnimal(Animal parent1, Animal parent2, float startEnergy) {
+        Vector2d pos = findProductionPos(parent1.getPosition());
+        Animal child = new Animal(this,pos,startEnergy);
+        child.makeBirthGenes(parent1, parent2);
+
+        return child;
+    }
+
+    private Vector2d findProductionPos(Vector2d breedPos) {
+        int startI = RandomUtils.intRange(0,7);
+        for(int i=0; i<7; i++){
+            Vector2d maybePos = new Vector2d(breedPos.x + MapDirection.kx[(startI + i)%7],
+                    breedPos.y + MapDirection.ky[(startI + i)%7]);
+            maybePos = VectorUtils.adjustedPosition(maybePos,this);
+            if(!isOccupied(maybePos) && !grassElements.containsKey(maybePos))
+                return maybePos;
+            if(i==6)
+                return maybePos;
+        }
+        return null;
     }
 
     private boolean canBreed(Animal a1, Animal a2) {
