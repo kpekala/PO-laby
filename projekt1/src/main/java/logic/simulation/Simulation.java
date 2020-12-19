@@ -15,7 +15,6 @@ import utils.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.stream.Stream;
 
 import static java.lang.Thread.sleep;
 
@@ -59,7 +58,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
             animal.changeDirection();
             animal.move();
         }
-        map.processEating();
+        map.eating();
         addGrass();
         presenter.onMapUpdate(index, new MapModel(getAnimalModels(), getGrassModels()));
     }

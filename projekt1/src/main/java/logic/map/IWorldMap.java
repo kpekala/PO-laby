@@ -15,5 +15,6 @@ public interface IWorldMap {
 
     Object objectAt(Vector2d position);
 
-    void processEating();
+    void eating();
+    void breeding();
 }

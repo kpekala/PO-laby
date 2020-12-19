@@ -17,7 +17,7 @@ public class App extends Application {
     public void start(Stage primaryStage){
        //settingsStage = new SettingsStage(this, 300, 500, "Ustawienia", "/settings.fxml");
         //settingsStage.show();
-        onStartGame(new GameConfig(20, 10, 10, false, 10,1, new Vector2d(5,5)));
+        onStartGame(new GameConfig(20, 10, 10, false, 10,1, 5, new Vector2d(5,5)));
     }
 
     public static void main(String[] args) {

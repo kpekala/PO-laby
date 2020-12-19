@@ -17,7 +17,7 @@ public class Animal implements IMapElement {
     private MapDirection mapDirection;
     private Vector2d position;
     private final WorldMap map;
-    private int energy;
+    private float energy;
 
 
     private int[] genes;
@@ -72,7 +72,7 @@ public class Animal implements IMapElement {
         mapDirection.update(newAngle);
     }
 
-    public void updateEnergy(int energyDelta){
+    public void updateEnergy(double energyDelta){
         this.energy += energyDelta;
     }
 
@@ -104,7 +104,7 @@ public class Animal implements IMapElement {
         return genes;
     }
 
-    public int getEnergy() {
+    public float getEnergy() {
         return energy;
     }
 

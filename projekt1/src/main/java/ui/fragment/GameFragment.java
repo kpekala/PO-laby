@@ -93,7 +93,7 @@ public class GameFragment extends BaseFragment {
         }
         for(AnimalModel animal: model.getAnimalModels()){
             Vector2d pos = animal.getPosition();
-            cells[pos.y][pos.x].setStyle("-fx-background-color: " +Colors.getGrey(0.3));
+            cells[pos.y][pos.x].setStyle("-fx-background-color: " +Colors.getGrey(animal.getRelativeEnergy()));
         }
         lastModel = model;
     }

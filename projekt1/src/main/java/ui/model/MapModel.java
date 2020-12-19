@@ -11,6 +11,19 @@ public class MapModel {
     public MapModel(ArrayList<AnimalModel> animalModels, Vector2d[] grassModels) {
         this.animalModels = animalModels;
         this.grassModels = grassModels;
+
+        processAnimals();
+    }
+
+    private void processAnimals() {
+        if(animalModels.isEmpty())
+            return;
+        float maxEnergy = animalModels.stream().map(AnimalModel::getEnergy).max(Float::compareTo).get();
+        for(AnimalModel model: animalModels){
+            float relativeEnergy = model.getEnergy() / maxEnergy;
+            relativeEnergy = relativeEnergy < 0 ? 0: relativeEnergy;
+            model.setRelativeEnergy(1 - relativeEnergy);
+        }
     }
 
     public ArrayList<AnimalModel> getAnimalModels() {

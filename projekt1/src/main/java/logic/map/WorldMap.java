@@ -1,13 +1,11 @@
 package logic.map;
 
+import logic.model.GameConfig;
 import logic.model.map.Grass;
 import logic.model.map.animal.Animal;
 import logic.model.Vector2d;
 import ui.model.AnimalModel;
-import ui.model.MapModel;
 
-import javax.swing.*;
-import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,13 +15,17 @@ public class WorldMap implements IWorldMap {
     private HashMap<Vector2d, Grass> grassElements;
     private ArrayList<Vector2d> eatingPlaces;
     private MapObserver mapObserver;
+    private GameConfig config;
 
     private int width;
     private int height;
+    private int plantEnergy;
 
-    public WorldMap(int width, int height) {
+    public WorldMap(GameConfig config, int width, int height, int plantEnergy) {
+        this.config = config;
         this.width = width;
         this.height = height;
+        this.plantEnergy = plantEnergy;
         animals = new HashMap<>();
         grassElements = new HashMap<>();
         eatingPlaces = new ArrayList<>();
@@ -76,11 +78,11 @@ public class WorldMap implements IWorldMap {
     }
 
     @Override
-    public void processEating() {
+    public void eating() {
         for(Vector2d place: eatingPlaces){
             if(!isOccupied(place) || !grassElements.containsKey(place))
                 continue;
-            int maxEnergy = 0;
+            double maxEnergy = 0;
             ArrayList<Animal> bestAnimals = new ArrayList<>();
             Grass grass = grassElements.get(place);
             for(Animal animal: animals.get(place))
@@ -91,7 +93,7 @@ public class WorldMap implements IWorldMap {
                 if(animal.getEnergy() == maxEnergy)
                     bestAnimals.add(animal);
 
-            int energyPerAnimal = 10 / bestAnimals.size();
+            double energyPerAnimal = plantEnergy / (double) bestAnimals.size();
             for(Animal animal: bestAnimals)
                 animal.updateEnergy(energyPerAnimal);
 
@@ -100,6 +102,47 @@ public class WorldMap implements IWorldMap {
             mapObserver.onGrassRemoved(grass);
         }
         eatingPlaces.clear();
+    }
+
+    public void breeding(){
+        for(Vector2d pos: animals.keySet()){
+            ArrayList<Animal> posAnimals = animals.get(pos);
+            if(posAnimals.size()<2)
+                continue;
+            Animal[] bestAnimals = getTwoBestAnimals(posAnimals);
+            Animal a1 = bestAnimals[0];
+            Animal a2 = bestAnimals[1];
+            if(canBreed(a1, a2)){
+                a1.updateEnergy(-a1.getEnergy()/4f);
+                a1.updateEnergy(-a2.getEnergy()/4f);
+            }
+        }
+    }
+
+    private boolean canBreed(Animal a1, Animal a2) {
+        float neededEnergy = config.getStartEnergy()/2.0f;
+        return a1.getEnergy() >= neededEnergy && a2.getEnergy() >= neededEnergy;
+    }
+
+    private Animal[] getTwoBestAnimals(ArrayList<Animal> anims){
+        Animal a1 = anims.get(0);
+        Animal a2 = anims.get(1);
+        for(int i=2; i<anims.size(); i++){
+            Animal a3 = anims.get(i);
+            if(a3.getEnergy() > a1.getEnergy()){
+                if (a3.getEnergy() > a2.getEnergy()){
+                    if(a1.getEnergy() > a2.getEnergy())
+                        a2 = a3;
+                    else
+                        a1 = a3;
+                }else
+                    a1 = a3;
+            }
+            else if(a3.getEnergy() > a2.getEnergy())
+                a2 = a3;
+
+        }
+        return new Animal[]{a1, a2};
     }
 
     public ArrayList<AnimalModel> getAnimalModels(){
