@@ -126,7 +126,6 @@ public class WorldMap implements IWorldMap {
             }
         }
         for(Animal animal: animalsToBreed){
-            System.out.println("Breeding!");
             place(animal);
             mapObserver.onAnimalBorn(animal);
         }

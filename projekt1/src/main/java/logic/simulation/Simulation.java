@@ -38,7 +38,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
         this.jungle = new Jungle(this.gameConfig);
         animals = new ArrayList<>();
         grasses = new ArrayList<>();
-        this.statistics = new Statistics(animals);
+        this.statistics = new Statistics(animals, grasses);
         map.attachObserver(this);
         generateMapElements();
     }
@@ -70,15 +70,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
     }
 
     private void processStatistics() {
-        int animalsNumber = animals.size();
-        int grassNumber = grasses.size();
-        StatisticsModel model = new StatisticsModel(animalsNumber,
-                grassNumber,
-                0,
-                statistics.getAverageEnergy(),
-                0,
-                statistics.getAverageChildNumber());
-        presenter.onStatisticsUpdate(index,model);
+        presenter.onStatisticsUpdate(index,statistics.generateStatisticsModel());
     }
 
 
@@ -120,6 +112,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
                 deadAnimals.add(animal);
         }
         for(Animal animal: deadAnimals){
+            statistics.addDeadAnimal(animal);
             animals.remove(animal);
         }
     }

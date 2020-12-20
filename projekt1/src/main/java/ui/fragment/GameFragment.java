@@ -26,7 +26,12 @@ public class GameFragment extends BaseFragment {
     private Jungle jungle;
     private boolean rendering = false;
 
-    Runnable updater = this::update;
+    Runnable updater = new Runnable() {
+        @Override
+        public void run() {
+            update();
+        }
+    };
 
     public GameFragment(BaseStage baseStage, GamePresenter gamePresenter, Vector2d pos, Vector2d size, int index) {
         super(baseStage, pos, size);
@@ -74,6 +79,8 @@ public class GameFragment extends BaseFragment {
     }
 
     public  void update(){
+        if(rendering)
+            System.out.println("ups");
         rendering = true;
         if(lastModel!= null){
             for(AnimalModel animal: lastModel.getAnimalModels()){
@@ -96,9 +103,6 @@ public class GameFragment extends BaseFragment {
     }
 
     public  void update(MapModel mapModel){
-        while (rendering){
-
-        }
         model = mapModel;
         Platform.runLater(updater);
     }

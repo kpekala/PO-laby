@@ -21,6 +21,7 @@ public class Animal implements IMapElement {
     private float energy;
     private int lifeSpan = 0;
     private int childNumber = 0;
+    private int mostPopularGen = 0;
 
     private int[] genes;
 
@@ -39,6 +40,7 @@ public class Animal implements IMapElement {
             genes[i] = randomUtils.randomAngle();
         }
         correctGenes();
+        findMostPopularGen();
     }
 
 
@@ -60,6 +62,23 @@ public class Animal implements IMapElement {
             iter += genesCounts[i];
         }
         correctGenes();
+        findMostPopularGen();
+    }
+
+    private void findMostPopularGen() {
+        int[] genesCounts = new int[8];
+        for(int gen: genes){
+            genesCounts[gen]++;
+        }
+        int maxI = 0;
+        int maxV = 0;
+        for(int i=0; i<8; i++){
+            if(genesCounts[i] > maxV){
+                maxV = genesCounts[i];
+                maxI = i;
+            }
+        }
+        mostPopularGen = maxI;
     }
 
 
@@ -74,6 +93,8 @@ public class Animal implements IMapElement {
         }
         Arrays.sort(genes);
     }
+
+
 
 
     public void move(){
@@ -148,5 +169,9 @@ public class Animal implements IMapElement {
 
     public int getChildNumber() {
         return childNumber;
+    }
+
+    public int getMostPopularGen() {
+        return mostPopularGen;
     }
 }
