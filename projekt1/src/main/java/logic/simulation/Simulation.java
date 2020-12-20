@@ -66,7 +66,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
         map.breeding();
         addGrass();
         processStatistics();
-        presenter.onMapUpdate(index, new MapModel(getAnimalModels(), getGrassModels()));
+        presenter.onMapUpdate(index, new MapModel(getAnimalModels(), map.getGrassModels()));
     }
 
     private void processStatistics() {
@@ -131,11 +131,6 @@ public class Simulation extends ThreadSimulation implements MapObserver {
         }
         return animalModels;
     }
-
-    public Vector2d[] getGrassModels() {
-        return grasses.stream().map(Grass::getPosition).toArray(Vector2d[]::new);
-    }
-
 
     @Override
     public void onGrassRemoved(Grass grass) {

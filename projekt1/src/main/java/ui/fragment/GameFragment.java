@@ -24,14 +24,9 @@ public class GameFragment extends BaseFragment {
     private MapModel lastModel;
     private MapModel model;
     private Jungle jungle;
+    private boolean rendering = false;
 
-    Runnable updater = new Runnable() {
-
-        @Override
-        public void run() {
-            update();
-        }
-    };
+    Runnable updater = this::update;
 
     public GameFragment(BaseStage baseStage, GamePresenter gamePresenter, Vector2d pos, Vector2d size, int index) {
         super(baseStage, pos, size);
@@ -78,7 +73,8 @@ public class GameFragment extends BaseFragment {
 
     }
 
-    public void update(){
+    public  void update(){
+        rendering = true;
         if(lastModel!= null){
             for(AnimalModel animal: lastModel.getAnimalModels()){
                 Vector2d pos = animal.getPosition();
@@ -96,9 +92,13 @@ public class GameFragment extends BaseFragment {
             cells[pos.y][pos.x].setStyle("-fx-background-color: " +Colors.getGrey(animal.getRelativeEnergy()));
         }
         lastModel = model;
+        rendering = false;
     }
 
-    public void update(MapModel mapModel){
+    public  void update(MapModel mapModel){
+        while (rendering){
+
+        }
         model = mapModel;
         Platform.runLater(updater);
     }

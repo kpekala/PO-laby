@@ -190,6 +190,10 @@ public class WorldMap implements IWorldMap {
         return animalModels;
     }
 
+    public Vector2d[] getGrassModels(){
+        return grassElements.keySet().toArray(Vector2d[]::new);
+    }
+
     public void onAnimalMoved(Animal animal, Vector2d oldPosition, Vector2d newPosition){
         remove(animal, oldPosition);
         place(animal);

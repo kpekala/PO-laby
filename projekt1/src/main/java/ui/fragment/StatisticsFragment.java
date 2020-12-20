@@ -1,5 +1,6 @@
 package ui.fragment;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
@@ -28,6 +29,10 @@ public class StatisticsFragment extends BaseFragment {
     private Text textAvgEnergy;
     private Text textAvgLifeSpan;
     private Text textAvgChildNumber;
+
+    Runnable updater = this::doUpdate;
+
+    private StatisticsModel model;
 
     public StatisticsFragment(BaseStage stage, GamePresenter gamePresenter, Vector2d pos, Vector2d size, int index) {
         super(stage,pos,size);
@@ -83,6 +88,11 @@ public class StatisticsFragment extends BaseFragment {
     }
 
     public void update(StatisticsModel model){
+        this.model = model;
+        Platform.runLater(updater);
+    }
+
+    private void doUpdate() {
         textAnimalsNumber.setText("Liczba zwierząt: " + model.getAnimalsNumber());
         textGrassNumber.setText("Liczba traw: " + model.getGrassNumber());
         textAvgEnergy.setText("Srednia energia: " + model.getAvgEnergy());
@@ -90,6 +100,7 @@ public class StatisticsFragment extends BaseFragment {
         textAvgChildNumber.setText("Srednia liczba dzieci: " + model.getAvgChildNumber());
         textMostPopularGen.setText("Najpopularniejszy gen: " + model.getMostPopularGen());
     }
+
 
     @Override
     public void initFragment() {
