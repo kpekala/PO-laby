@@ -6,6 +6,7 @@ import logic.model.GameConfig;
 import logic.model.Vector2d;
 import ui.game.GameStage;
 import ui.settings.SettingsStage;
+import utils.ConfigLoader;
 
 public class App extends Application {
 
@@ -16,8 +17,9 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage){
        //settingsStage = new SettingsStage(this, 300, 500, "Ustawienia", "/settings.fxml");
-        //settingsStage.show();
-        onStartGame(new GameConfig(50, 20, 20, false, 50,1, 5, new Vector2d(4,4)));
+
+        //settingsStage.show()50
+        onStartGame(ConfigLoader.load());
     }
 
     public static void main(String[] args) {

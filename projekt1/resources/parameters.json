@@ -1,0 +1,11 @@
+{
+    "animalsNumber": 50,
+    "width": 20,
+    "height": 20,
+    "singleSimulation": true,
+    "startEnergy": 20,
+    "moveEnergy": 1,
+    "plantEnergy": 5,
+    "jungleWidth": 4,
+    "jungleHeight": 4
+  }
