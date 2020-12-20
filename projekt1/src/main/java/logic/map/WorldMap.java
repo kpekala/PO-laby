@@ -119,8 +119,8 @@ public class WorldMap implements IWorldMap {
             if(canBreed(a1, a2)){
                 float breedEnergy1 = a1.getEnergy()/4f;
                 float breedEnergy2 = a2.getEnergy()/4f;
-                a1.updateEnergy(-breedEnergy1);
-                a2.updateEnergy(-breedEnergy2);
+                a1.updateOnBreed(breedEnergy1);
+                a2.updateOnBreed(breedEnergy2);
                 Animal newAnimal = breedAnimal(a1, a2, breedEnergy1 + breedEnergy2);
                 animalsToBreed.add(newAnimal);
             }

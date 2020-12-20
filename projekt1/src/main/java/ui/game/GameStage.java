@@ -12,7 +12,8 @@ import ui.fragment.StatisticsFragment;
 public class GameStage extends BaseStage {
 
     private GameFragment[] gameFragments;
-    private final StatisticsFragment statisticsFragment;
+    private StatisticsFragment[] statisticsFragments;
+
     private  MenuFragment[] menuFragments;
 
     private final GamePresenter gamePresenter = new GamePresenter(this);
@@ -20,13 +21,28 @@ public class GameStage extends BaseStage {
     public GameStage(App app, int width, int height, String title, boolean singleSimulation) {
         super(app, width, height);
         setUpGameFragments(singleSimulation);
+        setUpStatisticsFragments(singleSimulation);
         setUpMenuFragments(singleSimulation);
-
-        statisticsFragment = new StatisticsFragment(this, gamePresenter);
 
         setUpScene(width, height);
         setTitle(title);
     }
+
+    private void setUpStatisticsFragments(boolean singleSimulation) {
+        int factor = singleSimulation ? 1 : 2;
+        int w = (int) (width * 0.3);
+        int h = (int) (height * 0.8)/factor;
+        int x = (int) (width * 0.7);
+        statisticsFragments = new StatisticsFragment[factor];
+        statisticsFragments[0] = new StatisticsFragment(this,gamePresenter,
+                new Vector2d(x,0),
+                new Vector2d(w, h),0);
+        if(!singleSimulation)
+            statisticsFragments[1] = new StatisticsFragment(this, gamePresenter,
+                    new Vector2d(x, h),
+                    new Vector2d(w, h), 1);
+    }
+
 
     private void setUpGameFragments(boolean singleSimulation) {
         int factor = singleSimulation ? 1 : 2;
@@ -66,7 +82,9 @@ public class GameStage extends BaseStage {
         for(MenuFragment menuFragment: menuFragments){
             root.getChildren().add(menuFragment);
         }
-        root.getChildren().add(statisticsFragment);
+        for(StatisticsFragment statisticsFragment: statisticsFragments){
+            root.getChildren().add(statisticsFragment);
+        }
 
         Scene scene = new Scene(root, width, height);
         setScene(scene);
@@ -81,8 +99,8 @@ public class GameStage extends BaseStage {
         return gameFragments[index];
     }
 
-    public StatisticsFragment getStatisticsFragment() {
-        return statisticsFragment;
+    public StatisticsFragment getStatisticsFragment(int index) {
+        return statisticsFragments[index];
     }
 
     public MenuFragment getMenuFragment(int index) {

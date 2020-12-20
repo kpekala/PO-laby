@@ -3,6 +3,7 @@ package ui.fragment;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import logic.model.GameConfig;
@@ -53,8 +54,15 @@ public class MenuFragment extends BaseFragment {
         hBox.setMinHeight(size.y);
         hBox.setMinWidth(size.x);
 
+        setUpShadow();
         hBox.getChildren().addAll(buttonResume, buttonStop);
         getChildren().add(hBox);
+    }
+
+    private void setUpShadow() {
+        DropShadow shadow = new DropShadow();
+        shadow.setWidth(0);
+        setEffect(shadow);
     }
 
     private Button buildButton(String text){

@@ -3,6 +3,7 @@ package logic.simulation;
 import logic.ThreadSimulation;
 import logic.map.MapObserver;
 import logic.map.WorldMap;
+import logic.model.Statistics;
 import logic.model.map.animal.Animal;
 import logic.model.GameConfig;
 import logic.model.map.Grass;
@@ -11,6 +12,7 @@ import ui.game.GamePresenter;
 import ui.model.AnimalModel;
 import ui.model.Jungle;
 import ui.model.MapModel;
+import ui.model.StatisticsModel;
 import utils.RandomUtils;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
     private GamePresenter presenter;
     private GameConfig gameConfig;
     private Jungle jungle;
+    private final Statistics statistics;
 
     public Simulation(WorldMap map, GamePresenter presenter, int index) {
         super(index);
@@ -35,6 +38,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
         this.jungle = new Jungle(this.gameConfig);
         animals = new ArrayList<>();
         grasses = new ArrayList<>();
+        this.statistics = new Statistics(animals);
         map.attachObserver(this);
         generateMapElements();
     }
@@ -61,7 +65,20 @@ public class Simulation extends ThreadSimulation implements MapObserver {
         map.eating();
         map.breeding();
         addGrass();
+        processStatistics();
         presenter.onMapUpdate(index, new MapModel(getAnimalModels(), getGrassModels()));
+    }
+
+    private void processStatistics() {
+        int animalsNumber = animals.size();
+        int grassNumber = grasses.size();
+        StatisticsModel model = new StatisticsModel(animalsNumber,
+                grassNumber,
+                0,
+                statistics.getAverageEnergy(),
+                0,
+                statistics.getAverageChildNumber());
+        presenter.onStatisticsUpdate(index,model);
     }
 
 

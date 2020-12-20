@@ -19,7 +19,8 @@ public class Animal implements IMapElement {
     private Vector2d position;
     private final WorldMap map;
     private float energy;
-
+    private int lifeSpan = 0;
+    private int childNumber = 0;
 
     private int[] genes;
 
@@ -76,6 +77,7 @@ public class Animal implements IMapElement {
 
 
     public void move(){
+        lifeSpan++;
         Vector2d oldPosition = position;
         position = position.add(mapDirection.getCoordinates());
         adjustPosition();
@@ -135,7 +137,16 @@ public class Animal implements IMapElement {
         return energy;
     }
 
-    public void setEnergy(int energy) {
-        this.energy = energy;
+    public void updateOnBreed(float breedEnergy) {
+        this.energy -= breedEnergy;
+        this.childNumber++;
+    }
+
+    public int getLifeSpan() {
+        return lifeSpan;
+    }
+
+    public int getChildNumber() {
+        return childNumber;
     }
 }

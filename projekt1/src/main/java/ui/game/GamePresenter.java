@@ -4,6 +4,7 @@ import logic.map.WorldMap;
 import logic.model.GameConfig;
 import logic.simulation.Simulation;
 import ui.model.MapModel;
+import ui.model.StatisticsModel;
 
 public class GamePresenter {
     private final GameStage gameStage;
@@ -27,6 +28,7 @@ public class GamePresenter {
         for(int i=0; i<simulationsNumber; i++){
             gameStage.getGameFragment(i).init(gameConfig);
             gameStage.getMenuFragment(i).onStartGame(gameConfig);
+            gameStage.getStatisticsFragment(i).onStartGame(gameConfig);
         }
 
         startSimulation();
@@ -57,6 +59,10 @@ public class GamePresenter {
 
     public void onMapUpdate(int index, MapModel mapModel){
         gameStage.getGameFragment(index).update(mapModel);
+    }
+
+    public void onStatisticsUpdate(int index, StatisticsModel model){
+        gameStage.getStatisticsFragment(index).update(model);
     }
 }
 
