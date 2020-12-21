@@ -3,10 +3,9 @@ package ui.app;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import logic.model.GameConfig;
-import logic.model.Vector2d;
 import ui.game.GameStage;
 import ui.settings.SettingsStage;
-import utils.ConfigLoader;
+import utils.FileUtils;
 
 public class App extends Application {
 
@@ -19,7 +18,7 @@ public class App extends Application {
        //settingsStage = new SettingsStage(this, 300, 500, "Ustawienia", "/settings.fxml");
 
         //settingsStage.show()50
-        onStartGame(ConfigLoader.load());
+        onStartGame(FileUtils.loadConfig());
     }
 
     public static void main(String[] args) {

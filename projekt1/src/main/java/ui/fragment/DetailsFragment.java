@@ -34,7 +34,7 @@ public class DetailsFragment extends BaseFragment {
     @Override
     public void initViews() {
         textChildCount = generateText(14);
-        textGenes = generateText(12);
+        textGenes = generateText(10);
         textDeathDay = generateText(14);
 
         vbox = new VBox(16);
@@ -78,5 +78,6 @@ public class DetailsFragment extends BaseFragment {
 
     public void setChosenAnimal(Animal animal) {
         this.chosenAnimal = animal;
+        update();
     }
 }

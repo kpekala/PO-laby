@@ -6,6 +6,7 @@ import logic.model.map.animal.Animal;
 import logic.simulation.Simulation;
 import ui.model.MapModel;
 import ui.model.StatisticsModel;
+import utils.FileUtils;
 
 public class GamePresenter {
     private final GameStage gameStage;
@@ -74,6 +75,11 @@ public class GamePresenter {
     public void showChosenAnimal(Animal animal, int index) {
         gameStage.getDetailsFragment().setChosenAnimal(animal);
         gameStage.getGameFragment(index).setChosenAnimal(animal);
+    }
+
+    public void onSaveClicked(int index) {
+        StatisticsModel model = simulations[index].getStatisticsModel();
+        FileUtils.saveStatistics(model);
     }
 }
 

@@ -20,6 +20,7 @@ public class MenuFragment extends BaseFragment {
 
     private Button buttonResume;
     private Button buttonStop;
+    private Button buttonSave;
 
     private HBox hBox;
 
@@ -45,6 +46,8 @@ public class MenuFragment extends BaseFragment {
     public void initViews() {
         buttonResume = buildButton("Start");
         buttonStop = buildButton("Stop");
+        buttonSave = buildButton("Save");
+        buttonSave.setVisible(false);
         initClickListeners();
 
         hBox = new HBox(16);
@@ -55,7 +58,7 @@ public class MenuFragment extends BaseFragment {
         hBox.setMinWidth(size.x);
 
         setUpShadow();
-        hBox.getChildren().addAll(buttonResume, buttonStop);
+        hBox.getChildren().addAll(buttonResume, buttonStop, buttonSave);
         getChildren().add(hBox);
     }
 
@@ -75,9 +78,14 @@ public class MenuFragment extends BaseFragment {
     private void initClickListeners() {
         buttonResume.setOnMouseClicked(event -> {
             gamePresenter.onResumeGame(index);
+            buttonSave.setVisible(false);
         });
         buttonStop.setOnMouseClicked(event -> {
             gamePresenter.onStopGame(index);
+            buttonSave.setVisible(true);
+        });
+        buttonSave.setOnMouseClicked(event ->{
+            gamePresenter.onSaveClicked(index);
         });
     }
 }

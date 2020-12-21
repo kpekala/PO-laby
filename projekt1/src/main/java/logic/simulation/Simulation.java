@@ -151,4 +151,8 @@ public class Simulation extends ThreadSimulation implements MapObserver {
     public void setChosenAnimal(Animal chosenAnimal) {
         this.chosenAnimal = chosenAnimal;
     }
+
+    public StatisticsModel getStatisticsModel(){
+        return statistics.generateStatisticsModel();
+    }
 }
