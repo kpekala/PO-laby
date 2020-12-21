@@ -30,6 +30,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
     private Jungle jungle;
     private final Statistics statistics;
     private Animal chosenAnimal;
+    private int day=0;
 
     public Simulation(WorldMap map, GamePresenter presenter, int index) {
         super(index);
@@ -68,6 +69,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
         addGrass();
         processStatistics();
         presenter.onMapUpdate(index, new MapModel(getAnimalModels(), map.getGrassModels()));
+        day++;
     }
 
     private void processStatistics() {
@@ -113,6 +115,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
                 deadAnimals.add(animal);
         }
         for(Animal animal: deadAnimals){
+            animal.setDeathDay(day);
             statistics.addDeadAnimal(animal);
             animals.remove(animal);
         }

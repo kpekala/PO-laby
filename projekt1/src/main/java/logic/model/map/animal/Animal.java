@@ -20,6 +20,7 @@ public class Animal implements IMapElement {
     private final WorldMap map;
     private float energy;
     private int lifeSpan = 0;
+    private int deathDay = -1;
     private int childNumber = 0;
     private int mostPopularGen = 0;
 
@@ -94,7 +95,9 @@ public class Animal implements IMapElement {
         Arrays.sort(genes);
     }
 
-
+    public boolean isDead(){
+        return deathDay != -1;
+    }
 
 
     public void move(){
@@ -173,5 +176,13 @@ public class Animal implements IMapElement {
 
     public int getMostPopularGen() {
         return mostPopularGen;
+    }
+
+    public int getDeathDay() {
+        return deathDay;
+    }
+
+    public void setDeathDay(int deathDay) {
+        this.deathDay = deathDay;
     }
 }

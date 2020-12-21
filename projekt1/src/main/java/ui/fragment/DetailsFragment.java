@@ -69,8 +69,9 @@ public class DetailsFragment extends BaseFragment {
 
         textChildCount.setText("Liczba dzieci: " + chosenAnimal.getChildNumber());
         textGenes.setText(Arrays.toString(chosenAnimal.getGenes()));
-        if(chosenAnimal.getEnergy() <= 0)
-            textDeathDay.setText("Epoka śmierci(poprawka): " + chosenAnimal.getLifeSpan());
+        textDeathDay.setText("");
+        if(chosenAnimal.isDead())
+            textDeathDay.setText("Epoka śmierci(poprawka): " + chosenAnimal.getDeathDay());
 
     }
 
