@@ -74,13 +74,6 @@ public class StatisticsFragment extends BaseFragment {
         textAvgLifeSpan = generateText(14);
     }
 
-    private Text generateText(int font){
-        Text text = new Text();
-        text.setFont(new Font(font));
-        return text;
-    }
-
-
     private void setUpShadow() {
         DropShadow shadow = new DropShadow();
         shadow.setHeight(0);

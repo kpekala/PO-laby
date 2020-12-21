@@ -119,7 +119,7 @@ public class GameFragment extends BaseFragment {
         Platform.runLater(updater);
     }
 
-    public void showChosenAnimal(Animal animal) {
+    public void setChosenAnimal(Animal animal) {
         this.chosenAnimal = animal;
     }
 }

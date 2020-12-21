@@ -60,6 +60,7 @@ public class GamePresenter {
 
     public void onMapUpdate(int index, MapModel mapModel){
         gameStage.getGameFragment(index).update(mapModel);
+        gameStage.getDetailsFragment().update();
     }
 
     public void onStatisticsUpdate(int index, StatisticsModel model){
@@ -71,7 +72,8 @@ public class GamePresenter {
     }
 
     public void showChosenAnimal(Animal animal, int index) {
-        gameStage.getGameFragment(index).showChosenAnimal(animal);
+        gameStage.getDetailsFragment().setChosenAnimal(animal);
+        gameStage.getGameFragment(index).setChosenAnimal(animal);
     }
 }
 

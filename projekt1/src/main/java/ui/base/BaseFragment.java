@@ -1,6 +1,8 @@
 package ui.base;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import logic.model.Vector2d;
 import ui.app.App;
 import ui.app.AppPresenter;
@@ -28,6 +30,15 @@ public abstract class BaseFragment extends Pane {
         setMinHeight(size.y);
         setMinWidth(size.x);
     }
+
+
+    protected Text generateText(int font){
+        Text text = new Text();
+        text.setFont(new Font(font));
+        return text;
+    }
+
+
 
     public abstract void initViews();
     public abstract void initFragment();

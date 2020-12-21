@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import logic.model.Vector2d;
 import ui.app.App;
 import ui.base.BaseStage;
+import ui.fragment.DetailsFragment;
 import ui.fragment.GameFragment;
 import ui.fragment.MenuFragment;
 import ui.fragment.StatisticsFragment;
@@ -13,8 +14,8 @@ public class GameStage extends BaseStage {
 
     private GameFragment[] gameFragments;
     private StatisticsFragment[] statisticsFragments;
-
     private  MenuFragment[] menuFragments;
+    private DetailsFragment detailsFragment;
 
     private final GamePresenter gamePresenter = new GamePresenter(this);
 
@@ -23,6 +24,9 @@ public class GameStage extends BaseStage {
         setUpGameFragments(singleSimulation);
         setUpStatisticsFragments(singleSimulation);
         setUpMenuFragments(singleSimulation);
+        detailsFragment = new DetailsFragment(this,
+                new Vector2d((int)(0.7 * width), (int) (0.8 * height)),
+                new Vector2d((int)(0.3 * width),(int)(0.2 * height)));
 
         setUpScene(width, height);
         setTitle(title);
@@ -85,7 +89,7 @@ public class GameStage extends BaseStage {
         for(StatisticsFragment statisticsFragment: statisticsFragments){
             root.getChildren().add(statisticsFragment);
         }
-
+        root.getChildren().add(detailsFragment);
         Scene scene = new Scene(root, width, height);
         setScene(scene);
     }
@@ -109,5 +113,9 @@ public class GameStage extends BaseStage {
 
     public GamePresenter getPresenter() {
         return gamePresenter;
+    }
+
+    public DetailsFragment getDetailsFragment() {
+        return detailsFragment;
     }
 }
