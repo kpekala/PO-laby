@@ -8,14 +8,16 @@ public class StatisticsModel {
     private final float avgEnergy;
     private final float avgLifeSpan;
     private final float avgChildNumber;
+    private final int day;
 
-    public StatisticsModel(int animalsNumber, int grassNumber, int mostPopularGen, float avgEnergy, float avgLifeSpan, float avgChildNumber) {
+    public StatisticsModel(int animalsNumber, int grassNumber, int mostPopularGen, float avgEnergy, float avgLifeSpan, float avgChildNumber, int day) {
         this.animalsNumber = animalsNumber;
         this.grassNumber = grassNumber;
         this.mostPopularGen = mostPopularGen;
         this.avgEnergy = avgEnergy;
         this.avgLifeSpan = avgLifeSpan;
         this.avgChildNumber = avgChildNumber;
+        this.day = day;
     }
 
     public int getAnimalsNumber() {
@@ -40,5 +42,9 @@ public class StatisticsModel {
 
     public float getAvgChildNumber() {
         return avgChildNumber;
+    }
+
+    public int getDay() {
+        return day;
     }
 }

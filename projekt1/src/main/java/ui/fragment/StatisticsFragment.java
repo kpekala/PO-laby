@@ -29,6 +29,7 @@ public class StatisticsFragment extends BaseFragment {
     private Text textAvgEnergy;
     private Text textAvgLifeSpan;
     private Text textAvgChildNumber;
+    private Text textTitle;
 
     Runnable updater = this::doUpdate;
 
@@ -46,7 +47,7 @@ public class StatisticsFragment extends BaseFragment {
     }
 
     public void onStartGame(GameConfig config){
-        Text textTitle = new Text();
+        textTitle = new Text();
         textTitle.setFont(new Font(20));
         textTitle.setText("Symulacja " + (index + 1));
 
@@ -86,6 +87,7 @@ public class StatisticsFragment extends BaseFragment {
     }
 
     private void doUpdate() {
+        textTitle.setText("Symulacja " + (index + 1) + " (dzień " + model.getDay() + ")");
         textAnimalsNumber.setText("Liczba zwierząt: " + model.getAnimalsNumber());
         textGrassNumber.setText("Liczba traw: " + model.getGrassNumber());
         textAvgEnergy.setText("Srednia energia: " + model.getAvgEnergy());

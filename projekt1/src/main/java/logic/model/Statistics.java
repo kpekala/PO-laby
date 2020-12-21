@@ -20,9 +20,9 @@ public class Statistics {
         this.grasses = grasses;
     }
 
-    public StatisticsModel generateStatisticsModel(){
+    public StatisticsModel generateStatisticsModel(int day){
         if(animals.size() == 0)
-            return new StatisticsModel(0,grasses.size(),0,0,0,0);
+            return new StatisticsModel(0,grasses.size(),0,0,0,0, day);
         int animalsNumber = animals.size();
         int grassNumber = grasses.size();
 
@@ -48,8 +48,8 @@ public class Statistics {
                 mostPopularGen,
                 sumEnergy / animals.size(),
                 avgLifeSpan,
-                sumACN / (float)animals.size()
-                );
+                sumACN / (float)animals.size(),
+                day);
     }
 
     public void addDeadAnimal(Animal animal){

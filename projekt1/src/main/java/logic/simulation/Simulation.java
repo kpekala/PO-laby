@@ -73,7 +73,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
     }
 
     private void processStatistics() {
-        presenter.onStatisticsUpdate(index,statistics.generateStatisticsModel());
+        presenter.onStatisticsUpdate(index,statistics.generateStatisticsModel(day));
     }
 
 
@@ -156,7 +156,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
     }
 
     public StatisticsModel getStatisticsModel(){
-        return statistics.generateStatisticsModel();
+        return statistics.generateStatisticsModel(day);
     }
 
     public Animal[] getAnimalsWithMostPopularGen(){
