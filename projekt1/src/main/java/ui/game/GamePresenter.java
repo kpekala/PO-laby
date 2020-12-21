@@ -2,6 +2,7 @@ package ui.game;
 
 import logic.map.WorldMap;
 import logic.model.GameConfig;
+import logic.model.map.animal.Animal;
 import logic.simulation.Simulation;
 import ui.model.MapModel;
 import ui.model.StatisticsModel;
@@ -63,6 +64,14 @@ public class GamePresenter {
 
     public void onStatisticsUpdate(int index, StatisticsModel model){
         gameStage.getStatisticsFragment(index).update(model);
+    }
+
+    public void onCellClicked(int mapX, int mapY, int index) {
+        simulations[index].onNewChosenAnimal(mapX,mapY);
+    }
+
+    public void showChosenAnimal(Animal animal, int index) {
+        gameStage.getGameFragment(index).showChosenAnimal(animal);
     }
 }
 

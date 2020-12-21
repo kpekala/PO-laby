@@ -29,6 +29,7 @@ public class Simulation extends ThreadSimulation implements MapObserver {
     private GameConfig gameConfig;
     private Jungle jungle;
     private final Statistics statistics;
+    private Animal chosenAnimal;
 
     public Simulation(WorldMap map, GamePresenter presenter, int index) {
         super(index);
@@ -133,5 +134,21 @@ public class Simulation extends ThreadSimulation implements MapObserver {
     @Override
     public void onAnimalBorn(Animal animal) {
         animals.add(animal);
+    }
+
+    public Animal getChosenAnimal() {
+        return chosenAnimal;
+    }
+
+    public void onNewChosenAnimal(int x, int y){
+        Animal animal = map.getBestAnimal(new Vector2d(x,y));
+        if(animal != null){
+            setChosenAnimal(animal);
+            presenter.showChosenAnimal(animal, index);
+        }
+    }
+
+    public void setChosenAnimal(Animal chosenAnimal) {
+        this.chosenAnimal = chosenAnimal;
     }
 }

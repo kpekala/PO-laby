@@ -5,10 +5,12 @@ import javafx.application.Platform;
 import javafx.scene.layout.Region;
 import logic.model.GameConfig;
 import logic.model.Vector2d;
+import logic.model.map.animal.Animal;
 import ui.base.BaseFragment;
 import ui.base.BaseStage;
 import ui.game.GamePresenter;
 import ui.model.AnimalModel;
+import ui.model.Cell;
 import ui.model.Jungle;
 import ui.model.MapModel;
 import utils.Colors;
@@ -25,6 +27,7 @@ public class GameFragment extends BaseFragment {
     private MapModel model;
     private Jungle jungle;
     private boolean rendering = false;
+    private Animal chosenAnimal = null;
 
     Runnable updater = new Runnable() {
         @Override
@@ -49,7 +52,7 @@ public class GameFragment extends BaseFragment {
 
         for(int i = 0; i<config.getHeight(); i++)
             for(int j = 0; j<config.getWidth(); j++){
-                Region cell = new Region();
+                Cell cell = new Cell(j,i,gamePresenter);
                 int cellX = j * cellSize;
                 int cellY = (config.getHeight() -(i+1)) * cellSize;
                 cell.setStyle(Styles.getCSSBackground(getMapColor(j, i)));
@@ -60,7 +63,12 @@ public class GameFragment extends BaseFragment {
                 cell.setMinHeight(cellSize);
                 cells[i][j] = cell;
                 getChildren().add(cell);
+                cell.setOnMouseClicked(mouseEvent -> handleCellClicked(cell));
             }
+    }
+
+    private void handleCellClicked(Cell cell) {
+        gamePresenter.onCellClicked(cell.getMapX(), cell.getMapY(), index);
     }
 
     private String getMapColor(int x, int y){
@@ -79,9 +87,10 @@ public class GameFragment extends BaseFragment {
     }
 
     public  void update(){
-        if(rendering)
-            System.out.println("ups");
-        rendering = true;
+        if(chosenAnimal != null){
+            Vector2d pos = chosenAnimal.getPosition();
+            cells[pos.y][pos.x].setStyle("-fx-background-color: " + getMapColor(pos.x, pos.y));
+        }
         if(lastModel!= null){
             for(AnimalModel animal: lastModel.getAnimalModels()){
                 Vector2d pos = animal.getPosition();
@@ -98,12 +107,19 @@ public class GameFragment extends BaseFragment {
             Vector2d pos = animal.getPosition();
             cells[pos.y][pos.x].setStyle("-fx-background-color: " +Colors.getGrey(animal.getRelativeEnergy()));
         }
+        if(chosenAnimal != null){
+            Vector2d pos = chosenAnimal.getPosition();
+            cells[pos.y][pos.x].setStyle("-fx-background-color: darkBlue");
+        }
         lastModel = model;
-        rendering = false;
     }
 
     public  void update(MapModel mapModel){
         model = mapModel;
         Platform.runLater(updater);
+    }
+
+    public void showChosenAnimal(Animal animal) {
+        this.chosenAnimal = animal;
     }
 }

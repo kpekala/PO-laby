@@ -14,7 +14,8 @@ import java.util.HashMap;
 
 public class WorldMap implements IWorldMap {
 
-    private HashMap<Vector2d, ArrayList<Animal>> animals;
+
+    private final HashMap<Vector2d, ArrayList<Animal>> animals;
     private HashMap<Vector2d, Grass> grassElements;
     private ArrayList<Vector2d> eatingPlaces;
     private MapObserver mapObserver;
@@ -204,5 +205,9 @@ public class WorldMap implements IWorldMap {
 
     public int getHeight() {
         return height;
+    }
+
+    public Animal getBestAnimal(Vector2d pos){
+        return isOccupied(pos)? animals.get(pos).get(0): null;
     }
 }

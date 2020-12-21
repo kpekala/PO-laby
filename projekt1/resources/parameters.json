@@ -2,7 +2,7 @@
     "animalsNumber": 50,
     "width": 20,
     "height": 20,
-    "singleSimulation": true,
+    "singleSimulation": false,
     "startEnergy": 20,
     "moveEnergy": 1,
     "plantEnergy": 5,
