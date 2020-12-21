@@ -13,30 +13,11 @@ public class Statistics {
 
     private int numberOfDeaths = 0;
     private float avgLifeSpan = 0;
+    private int mostPopularGen = 0;
 
     public Statistics(ArrayList<Animal> animals, ArrayList<Grass> grasses){
         this.animals = animals;
         this.grasses = grasses;
-    }
-
-    public float getAverageEnergy(){
-        if(animals.size() == 0)
-            return 0f;
-        float sum = 0;
-        for(Animal a: animals){
-            sum += a.getEnergy();
-        }
-        return sum / animals.size();
-    }
-
-    public float getAverageChildNumber(){
-        if(animals.size() == 0)
-            return 0f;
-        float sum = 0;
-        for(Animal a: animals){
-            sum += a.getChildNumber();
-        }
-        return sum / animals.size();
     }
 
     public StatisticsModel generateStatisticsModel(){
@@ -62,7 +43,7 @@ public class Statistics {
                 maxI = i;
             }
         }
-        int mostPopularGen = maxI;
+        mostPopularGen = maxI;
         return new StatisticsModel(animalsNumber, grassNumber,
                 mostPopularGen,
                 sumEnergy / animals.size(),
@@ -81,5 +62,7 @@ public class Statistics {
         avgLifeSpan = (oldLifeSpanSum + animal.getLifeSpan()) / numberOfDeaths;
     }
 
-
+    public int getMostPopularGen() {
+        return mostPopularGen;
+    }
 }

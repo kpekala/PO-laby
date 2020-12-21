@@ -122,4 +122,11 @@ public class GameFragment extends BaseFragment {
     public void setChosenAnimal(Animal animal) {
         this.chosenAnimal = animal;
     }
+
+    public void addAnimalsWithMostPopularGen(Animal[] animals){
+        for(Animal animal: animals){
+            Vector2d pos = animal.getPosition();
+            cells[pos.y][pos.x].setStyle("-fx-background-color: purple");
+        }
+    }
 }

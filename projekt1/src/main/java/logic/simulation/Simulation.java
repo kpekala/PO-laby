@@ -155,4 +155,9 @@ public class Simulation extends ThreadSimulation implements MapObserver {
     public StatisticsModel getStatisticsModel(){
         return statistics.generateStatisticsModel();
     }
+
+    public Animal[] getAnimalsWithMostPopularGen(){
+        int gen = statistics.getMostPopularGen();
+        return animals.stream().filter(animal -> animal.getMostPopularGen() == gen).toArray(Animal[]::new);
+    }
 }

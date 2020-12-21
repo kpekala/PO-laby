@@ -47,6 +47,7 @@ public class GamePresenter {
 
     public void onStopGame(int index){
         simulations[index].stopGame();
+        gameStage.getGameFragment(index).addAnimalsWithMostPopularGen(simulations[index].getAnimalsWithMostPopularGen());
     }
 
     public void onResumeGame(int index){
