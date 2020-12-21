@@ -71,7 +71,7 @@ public class DetailsFragment extends BaseFragment {
         textGenes.setText(Arrays.toString(chosenAnimal.getGenes()));
         textDeathDay.setText("");
         if(chosenAnimal.isDead())
-            textDeathDay.setText("Epoka śmierci(poprawka): " + chosenAnimal.getDeathDay());
+            textDeathDay.setText("Epoka śmierci: " + chosenAnimal.getDeathDay());
 
     }
 

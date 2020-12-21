@@ -1,8 +1,8 @@
 {
-    "animalsNumber": 50,
+    "animalsNumber": 40,
     "width": 20,
     "height": 20,
-    "singleSimulation": false,
+    "singleSimulation": true,
     "startEnergy": 20,
     "moveEnergy": 1,
     "plantEnergy": 5,
